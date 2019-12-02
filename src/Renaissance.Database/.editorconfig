@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0069: Les champs supprimables doivent l'être
+dotnet_diagnostic.IDE0069.severity = none
