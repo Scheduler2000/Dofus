@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Renaissance.Abstract.Database.Share;
 
 namespace Renaissance.Abstract.Network.Interface
 {
@@ -9,6 +7,7 @@ namespace Renaissance.Abstract.Network.Interface
     /// </summary>
     public interface IDofusClient
     {
+        Account Account { get; set; }
         INetworkConnection Connection { get; }
     }
 }

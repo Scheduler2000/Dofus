@@ -1,5 +1,4 @@
-﻿using Renaissance.Abstract.Network;
-using Renaissance.Abstract.Network.Interface;
+﻿using Renaissance.Abstract.Network.Interface;
 using Renaissance.Protocol;
 
 namespace Renaissance.Abstract.Frame.Brain

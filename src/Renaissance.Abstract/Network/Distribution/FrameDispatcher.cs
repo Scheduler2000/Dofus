@@ -25,7 +25,7 @@ namespace Renaissance.Abstract.Network.Distribution
             int key = frame.Metadata.MessageId;
 
             if (!m_messageProvider.TryGetValue(key, out var msgCtor))
-                Logger.Instance.Log(LogLevel.Warn,"[NETWORK]", $"The message received isn't in the protocol : {key}.");
+                Logger.Instance.Log(LogLevel.Warn, "[NETWORK]", $"The message received isn't in the protocol : {key}.");
             else
             {
                 IDofusMessage message = msgCtor();

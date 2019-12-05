@@ -1,7 +1,7 @@
-﻿using Astron.Size;
+﻿using System;
+using Astron.Size;
 using Astron.Size.Storage;
 using Renaissance.Binary.Definition;
-using System;
 
 namespace Renaissance.Binary.SizingStorage
 {

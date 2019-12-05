@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Astron.Network;
 using Astron.Network.Abstractions;
-using Atarax.Threading;
+using Renaissance.Threading;
 using Renaissance.Abstract.Network.Framing;
 
 namespace Renaissance.Abstract.Network

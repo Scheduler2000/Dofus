@@ -12,12 +12,12 @@ namespace Renaissance.Database
 
         protected DofusContext()
         {
-            
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=Authentication;Username=postgres;Password=Dofus2.0");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=Atarax;Username=postgres;Password=Dofus2.0");
             base.OnConfiguring(optionsBuilder);
         }
 

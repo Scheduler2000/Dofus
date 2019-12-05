@@ -12,5 +12,6 @@
 
         public static implicit operator T(CustomVar<T> customVar)
             => customVar.Value;
+
     }
 }

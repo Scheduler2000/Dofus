@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
-using Atarax.Threading;
+using Renaissance.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Renaissance.Abstract;
+using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Frame.Brain;
 using Renaissance.Abstract.Network.Distribution;
-using Renaissance.Auth.Database.Authentication;
 using Renaissance.Auth.Frame;
 using Renaissance.Auth.IoC.Protocol;
 using Renaissance.Auth.Networking;
-using Renaissance.Threading;
+using Renaissance.Auth.Manager;
 
 namespace Renaissance.Auth.IoC
 {
@@ -41,7 +41,9 @@ namespace Renaissance.Auth.IoC
 
             services.AddSingleton(authServer)
                     .AddSingleton(frameDispatcher)
-                    .AddSingleton(new AccountRepository());
+                    .AddSingleton(new AccountRepository())
+                    .AddSingleton(new IdentificationManager())
+                    .AddSingleton(new NicknameManager());
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 

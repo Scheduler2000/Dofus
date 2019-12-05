@@ -9,7 +9,9 @@ namespace Renaissance.Abstract.Network.Interface
 {
     public interface INetworkConnection
     {
-        void Initialize(FrameDispatcher dispatcher, Action<FrameDispatcher, Frame<DofusMetadata>> dispatching);
-        ValueTask SendMessageAsync<TMessage>(TMessage message) where TMessage : IDofusMessage;
+        void Initialize(FrameDispatcher dispatcher, Action<FrameDispatcher, Frame<DofusMetadata>> dispatching, Action onClosed);
+        ValueTask Send<TMessage>(TMessage message) where TMessage : IDofusMessage;
+
+        void Close();
     }
 }

@@ -11,14 +11,7 @@ namespace Renaissance.Binary
     public class DofusWriter : BeBinaryWriter
     {
         public byte[] Data
-        {
-            get
-            {
-                var data = (base.BaseStream as MemoryStream)?.GetBuffer();
-                Array.Resize(ref data, (int)BaseStream.Position);
-                return data;
-            }
-        }
+        { get => (base.BaseStream as MemoryStream).ToArray(); }
 
 
         public DofusWriter() : base(new MemoryStream()) { }

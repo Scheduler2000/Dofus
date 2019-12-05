@@ -1,8 +1,8 @@
-﻿using Astron.Binary.Reader;
+﻿using System;
+using System.Text;
+using Astron.Binary.Reader;
 using Astron.Binary.Storage;
 using Astron.Binary.Writer;
-using System;
-using System.Text;
 
 namespace Renaissance.Binary.BinaryStorage
 {

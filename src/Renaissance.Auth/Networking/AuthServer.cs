@@ -1,21 +1,26 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
-using Atarax.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Renaissance.Abstract;
+using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Network;
 using Renaissance.Abstract.Network.Distribution;
 using Renaissance.Auth.IoC;
 using Renaissance.Auth.Patch;
 using Renaissance.Protocol.messages.handshake;
 using Renaissance.Protocol.messages.security;
+using Renaissance.Threading;
 
 namespace Renaissance.Auth.Networking
 {
     public class AuthServer : DofusServer
     {
+        public List<AuthClient> Clients { get; }
+
         public AuthServer(IContextHandler taskPool) : base(IPAddress.Parse("127.0.0.1"), 443, taskPool)
-        { }
+        { this.Clients = new List<AuthClient>(); }
 
         public override Task Initialize()
         {
@@ -31,10 +36,11 @@ namespace Renaissance.Auth.Networking
             var authClient = new AuthClient(client);
 
             authClient.Connection.Initialize(ServiceLocator.Provider.GetService<FrameDispatcher>(),
-                (dispatcher, frame) => dispatcher.Dispatch(authClient, frame));
+                (dispatcher, frame) => dispatcher.Dispatch(authClient, frame),
+                 onClosed: () => authClient.Disconnect());
 
-            await client.SendMessageAsync(new ProtocolRequired().InitProtocolRequired(1945, 1945));
-            await client.SendMessageAsync(new RawDataMessage().InitRawDataMessage(PatchDataAccess.PatchBuffer));
+            await client.Send(new ProtocolRequired().InitProtocolRequired(1945, 1945));
+            await client.Send(new RawDataMessage().InitRawDataMessage(PatchDataAccess.PatchBuffer));
         }
     }
 }

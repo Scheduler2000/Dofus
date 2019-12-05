@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Renaissance.Auth.Migrations
+namespace Renaissance.Abstract.Migrations
 {
-    public partial class AccountCreate : Migration
+    public partial class Accounts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

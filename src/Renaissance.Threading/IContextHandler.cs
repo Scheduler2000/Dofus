@@ -2,7 +2,7 @@
 using System.Threading;
 using Renaissance.Threading.Callbacking;
 
-namespace Atarax.Threading
+namespace Renaissance.Threading
 {
     /// <summary>
     /// <see cref="IContextHandler"/> represents a set of instructions to be performed by one <see cref="Thread"/> 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Renaissance.Database;
 
-namespace Renaissance.Auth.Database.Authentication
+namespace Renaissance.Abstract.Database.Share
 {
     public class AccountContext : DofusContext<Account>
     {
@@ -10,7 +10,7 @@ namespace Renaissance.Auth.Database.Authentication
         public AccountContext()
         {
             this.Table = base.Set<Account>();
-            base.Verify("Accounts");
+            Verify("Accounts");
         }
     }
 }

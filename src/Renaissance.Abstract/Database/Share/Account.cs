@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Renaissance.Database.Pattern;
 using Renaissance.Protocol.enums.custom;
 
-namespace Renaissance.Auth.Database.Authentication
+namespace Renaissance.Abstract.Database.Share
 {
     [Table("Accounts")]
     public class Account : IEntity
@@ -30,8 +30,22 @@ namespace Renaissance.Auth.Database.Authentication
 
         public string Ticket { get; set; }
 
-        public bool IsBanned { get; set; } = false;
+        public bool IsBanned { get; set; }
 
         public DateTime BanEndDate { get; set; }
+
+
+        [NotMapped]
+        public bool IsConnected { get; set; }
+
+        [NotMapped]
+        public bool IsAdmin => Role == RoleEnum.Administrator;
+
+        [NotMapped]
+        public bool IsLifeBanned => BanEndDate == null && IsBanned;
+
+        [NotMapped]
+        public bool CanCreateNewCharacter => CharactersCount < 5;
+
     }
 }

@@ -28,7 +28,7 @@ namespace Renaissance.Auth.IoC.Protocol
                                                            x.Namespace.Contains("connection")) ||
                                                            x.Namespace.Contains("handshake") ||
                                                            x.Namespace.Contains("messages.common.basic") ||
-                                                           x.Namespace.Contains("queues")) ;
+                                                           x.Namespace.Contains("queues"));
 
             foreach (var type in types)
             {

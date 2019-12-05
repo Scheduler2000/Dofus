@@ -8,14 +8,15 @@ namespace Renaissance.Abstract.Network.Framing
 {
     public class DofusFrameParser : FrameParser<DofusMetadata>
     {
+        private const int m_headerSize = 2;
+        private const int m_instanceId = 4;
+
         protected override int GetMetadataLengthAbs(DofusMetadata metadata)
         {
             bool messageFromServer = metadata.InstanceId == 0;
-            int headerSize = 2;
-            int instanceIdSize = 4;
 
-            return messageFromServer ? headerSize + metadata.LengthByteCount
-                                     : headerSize + metadata.LengthByteCount + instanceIdSize;
+            return messageFromServer ? m_headerSize + metadata.LengthByteCount
+                                     : m_headerSize + metadata.LengthByteCount + m_instanceId;
         }
 
         protected override bool TryParseMetadata(ReadOnlySequence<byte> input, out DofusMetadata metadata)

@@ -2,18 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Renaissance.Auth.Database.Authentication;
+using Renaissance.Abstract.Database.Share;
 
-namespace Renaissance.Auth.Migrations
+namespace Renaissance.Abstract.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    [Migration("20191111203049_AccountCreate")]
-    partial class AccountCreate
+    partial class AccountContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +19,7 @@ namespace Renaissance.Auth.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Renaissance.Auth.Database.Authentication.Account", b =>
+            modelBuilder.Entity("Renaissance.Abstract.Database.Share.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -1,15 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Frame;
-using Renaissance.Auth.Database.Authentication;
 using Renaissance.Auth.IoC;
+using Renaissance.Auth.Manager;
 using Renaissance.Auth.Networking;
-using Renaissance.Binary.Definition;
 using Renaissance.Protocol;
 using Renaissance.Protocol.enums;
+using Renaissance.Protocol.enums.custom;
 using Renaissance.Protocol.messages.common.basic;
 using Renaissance.Protocol.messages.connection;
 using Renaissance.Protocol.messages.connection.register;
-using Renaissance.Protocol.types.connection;
 
 namespace Renaissance.Auth.Frame
 {
@@ -19,24 +21,40 @@ namespace Renaissance.Auth.Frame
         public void HandleIdentificationMessage(AuthClient client, IDofusMessage message)
         {
             var msg = message as IdentificationMessage;
-            Account account = ServiceLocator.Provider.GetService<AccountRepository>()
-                .GetEntity(x => x.Login == msg.Username && x.Password == msg.Password);
-            if (account == null)
-                client.Connection.SendMessageAsync(new IdentificationFailedMessage()
-                    .InitIdentificationFailedMessage((byte)IdentificationFailureReasonEnum.WRONG_CREDENTIALS));
+            var accountRepository = ServiceLocator.Provider.GetService<AccountRepository>();
+            var identificationManager = ServiceLocator.Provider.GetService<IdentificationManager>();
+            var authServer = ServiceLocator.Provider.GetService<AuthServer>();
+
+            client.Account = accountRepository
+                             .GetEntity(x => x.Login == msg.Username && x.Password == msg.Password);
+
+
+
+            if (client.Account == null)
+                identificationManager.SendIdentificationFailed(client, IdentificationFailureReasonEnum.WRONG_CREDENTIALS);
+
+            else if (client.Account.IsBanned)
+                identificationManager.SendIdentificationFailed(client, IdentificationFailureReasonEnum.BANNED);
+
             else
             {
-                _ = client.Connection.SendMessageAsync(new IdentificationSuccessMessage()
-                     .InitIdentificationSuccessMessage("test", "null", 1, 0, new WrappedBool(false), "lol", 12222, 222, 000222
-                     , new WrappedBool(false), 0));
-                ServersListMessage messa = new ServersListMessage();
-                var server = new GameServerInformations()
-                             .InitGameServerInformations(new CustomVar<short>(19), (byte)GameServerTypeEnum.SERVER_TYPE_CLASSICAL,new WrappedBool(false), (byte)GameServerTypeEnum.SERVER_TYPE_CLASSICAL,
-                             (byte)ServerStatusEnum.ONLINE, new WrappedBool(true), 5, 5, 0) ;
+                if (client.Account.IsConnected)
+                {
+                    var alreadyConnected = authServer.Clients.First(x => x.Account.Id == client.Account.Id);
+                    alreadyConnected.Connection.Close();
+                }
 
-                GameServerInformations[] servers = new GameServerInformations[] { server };
-                messa.InitServersListMessage(servers, new CustomVar<short>(0),true);
-                client.Connection.SendMessageAsync(messa);
+                client.Account.HardwareId = msg.HardwareId;
+                client.Account.Ticket = Guid.NewGuid().ToString("N");
+                accountRepository.Update(client.Account);
+
+                if (client.Account.Nickname == null)
+                    ServiceLocator.Provider.GetService<NicknameManager>().SendNicknameRegistration(client);
+                else
+                {
+                    identificationManager.SendIdentificationSuccess(client);
+                    identificationManager.SendServerList(client);
+                }
             }
         }
 
@@ -44,16 +62,46 @@ namespace Renaissance.Auth.Frame
         public void HandleNicknameChoiceRequestMessage(AuthClient client, IDofusMessage message)
         {
             var msg = message as NicknameChoiceRequestMessage;
+            var nicknameManager = ServiceLocator.Provider.GetService<NicknameManager>();
+            var accountRepository = ServiceLocator.Provider.GetService<AccountRepository>();
+
+            if (client.Account.Nickname != null)
+                nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.UNKNOWN_NICK_ERROR);
+
+            else if (client.Account.Login == client.Account.Nickname)
+                nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.SAME_AS_LOGIN);
+
+            else if (client.Account.Login.Contains(msg.Nickname) && client.Account.Login.Length - msg.Nickname.Length < 3)
+                nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.TOO_SIMILAR_TO_LOGIN);
+
+            else if (accountRepository.GetEntity(x => x.Nickname == msg.Nickname) != null)
+                nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.ALREADY_USED);
+
+            else
+            {
+                var identificationManager = ServiceLocator.Provider.GetService<IdentificationManager>();
+
+                client.Account.Nickname = msg.Nickname;
+                accountRepository.Update(client.Account);
+
+                nicknameManager.SendNicknameAccepted(client);
+                identificationManager.SendIdentificationSuccess(client);
+                identificationManager.SendServerList(client);
+            }
         }
 
         [MessageHandler(ServerSelectionMessage.NetworkId)]
         public void HandleServerSelectionMessage(AuthClient client, IDofusMessage message)
         {
             var msg = message as ServerSelectionMessage;
+
         }
 
         [MessageHandler(BasicPingMessage.NetworkId)]
         public void HandleBasicPingMessage(AuthClient client, IDofusMessage message)
-        { client.Connection.SendMessageAsync(new BasicPongMessage()); }
+        {
+            var msg = message as BasicPingMessage;
+            client.Connection.Send(new BasicPongMessage().InitBasicPongMessage(msg.Quiet));
+        }
     }
 }

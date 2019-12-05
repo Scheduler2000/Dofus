@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Atarax.Threading;
 using Renaissance.Threading.Callbacking;
 using Renaissance.Threading.Synchronization.List;
 using Renaissance.Threading.Synchronization.Queue.LockFree;

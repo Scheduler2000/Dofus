@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
-using Atarax.Threading;
+using Renaissance.Threading;
 using Renaissance.Abstract.Network.Interface;
 using Renaissance.Protocol;
 
@@ -9,7 +9,7 @@ namespace Renaissance.Abstract.Frame.Brain
     public class FrameManager<TClient> : IFrameManager where TClient : class, IDofusClient
     {
         private readonly ImmutableDictionary<int, Action<TClient, IDofusMessage>> m_frames;
-        private IContextHandler m_threading;
+        private readonly IContextHandler m_threading;
 
         public FrameManager(ImmutableDictionary<int, Action<TClient, IDofusMessage>> frames,
             IContextHandler threading)
