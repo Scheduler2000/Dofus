@@ -17,7 +17,7 @@ namespace Renaissance.Auth.Networking
         { this.Connection = authConnection; }
 
 
-        public void Disconnect()
+        public void OnDisconnected()
         {
             if (Account != null)
             {
@@ -26,5 +26,9 @@ namespace Renaissance.Auth.Networking
                 ServiceLocator.Provider.GetService<AuthServer>().Clients.Remove(this);
             }
         }
+
+        public void Dispose()
+        { Connection.Close(); }
+
     }
 }

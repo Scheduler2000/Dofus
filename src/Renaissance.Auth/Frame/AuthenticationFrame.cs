@@ -12,6 +12,7 @@ using Renaissance.Protocol.enums.custom;
 using Renaissance.Protocol.messages.common.basic;
 using Renaissance.Protocol.messages.connection;
 using Renaissance.Protocol.messages.connection.register;
+using Renaissance.Protocol.messages.queues;
 
 namespace Renaissance.Auth.Frame
 {
@@ -20,6 +21,8 @@ namespace Renaissance.Auth.Frame
         [MessageHandler(IdentificationMessage.NetworkId)]
         public void HandleIdentificationMessage(AuthClient client, IDofusMessage message)
         {
+            client.Connection.Send(new LoginQueueStatusMessage().InitLoginQueueStatusMessage(0, 0));
+
             var msg = message as IdentificationMessage;
             var accountRepository = ServiceLocator.Provider.GetService<AccountRepository>();
             var identificationManager = ServiceLocator.Provider.GetService<IdentificationManager>();
@@ -28,12 +31,11 @@ namespace Renaissance.Auth.Frame
             client.Account = accountRepository
                              .GetEntity(x => x.Login == msg.Username && x.Password == msg.Password);
 
-
-
             if (client.Account == null)
                 identificationManager.SendIdentificationFailed(client, IdentificationFailureReasonEnum.WRONG_CREDENTIALS);
 
-            else if (client.Account.IsBanned)
+            else if (client.Account.IsLifeBanned ||
+                    (client.Account.IsBanned && client.Account.BanEndDate > DateTime.Now))
                 identificationManager.SendIdentificationFailed(client, IdentificationFailureReasonEnum.BANNED);
 
             else
@@ -41,7 +43,7 @@ namespace Renaissance.Auth.Frame
                 if (client.Account.IsConnected)
                 {
                     var alreadyConnected = authServer.Clients.First(x => x.Account.Id == client.Account.Id);
-                    alreadyConnected.Connection.Close();
+                    alreadyConnected.Dispose();
                 }
 
                 client.Account.HardwareId = msg.HardwareId;
@@ -68,7 +70,7 @@ namespace Renaissance.Auth.Frame
             if (client.Account.Nickname != null)
                 nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.UNKNOWN_NICK_ERROR);
 
-            else if (client.Account.Login == client.Account.Nickname)
+            else if (client.Account.Login == msg.Nickname)
                 nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.SAME_AS_LOGIN);
 
             else if (client.Account.Login.Contains(msg.Nickname) && client.Account.Login.Length - msg.Nickname.Length < 3)
@@ -76,6 +78,9 @@ namespace Renaissance.Auth.Frame
 
             else if (accountRepository.GetEntity(x => x.Nickname == msg.Nickname) != null)
                 nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.ALREADY_USED);
+
+            else if (msg.Nickname == string.Empty || msg.Nickname.Length >= 15 || msg.Nickname.Contains('\''))
+                nicknameManager.SendNicknameRefused(client, NicknameErrorEnum.INVALID_NICK);
 
             else
             {
@@ -94,7 +99,8 @@ namespace Renaissance.Auth.Frame
         public void HandleServerSelectionMessage(AuthClient client, IDofusMessage message)
         {
             var msg = message as ServerSelectionMessage;
-
+            ServiceLocator.Provider.GetService<IdentificationManager>()
+                                   .SendSelectedServer(client, msg.ServerId);
         }
 
         [MessageHandler(BasicPingMessage.NetworkId)]

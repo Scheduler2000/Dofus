@@ -1,11 +1,12 @@
-﻿using Renaissance.Abstract.Database.Share;
+﻿using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using Renaissance.Abstract.Database.Share;
 using Renaissance.Auth.IoC;
 using Renaissance.Auth.Networking;
 using Renaissance.Binary.Definition;
 using Renaissance.Protocol.enums;
 using Renaissance.Protocol.messages.connection;
 using Renaissance.Protocol.types.connection;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Renaissance.Auth.Manager
 {
@@ -28,7 +29,7 @@ namespace Renaissance.Auth.Manager
                              .InitIdentificationSuccessMessage(client.Account.Login, client.Account.Nickname,
                                                                client.Account.Id, 0, new WrappedBool(client.Account.IsAdmin),
                                                                client.Account.SecretQuestion, 0, 0, 0,
-                                                               new WrappedBool(client.Account.IsConnected), 1));
+                                                               new WrappedBool(false), 1));
         }
 
         public void SendServerList(AuthClient client)
@@ -38,8 +39,8 @@ namespace Renaissance.Auth.Manager
                  new GameServerInformations()
                              .InitGameServerInformations(new CustomVar<short>(20),
                              (byte)GameServerTypeEnum.SERVER_TYPE_CLASSICAL,new WrappedBool(false),
-                             (byte)ServerStatusEnum.ONLINE,0,
-                             new WrappedBool(true), 5, 5, 0)
+                             (byte)ServerStatusEnum.ONLINE,(byte)ServerCompletionEnum.COMPLETION_RECOMANDATED,
+                             new WrappedBool(true),5, 5, 0)
             };
 
             client.Connection.Send(new ServersListMessage()
@@ -49,7 +50,11 @@ namespace Renaissance.Auth.Manager
 
         public void SendSelectedServer(AuthClient client, CustomVar<short> serverId)
         {
-            /* TODO */
+            client.Connection.Send(new SelectedServerDataMessage()
+                             .InitSelectedServerDataMessage(serverId, "127.0.0.1",
+                                                            new int[] { 5555 }, client.Account.CanCreateNewCharacter,
+                                                            Encoding.ASCII.GetBytes(client.Account.Ticket)));
+            client.Dispose();
         }
     }
 }
