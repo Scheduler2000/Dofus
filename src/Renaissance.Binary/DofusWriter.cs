@@ -13,7 +13,6 @@ namespace Renaissance.Binary
         public byte[] Data
         { get => (base.BaseStream as MemoryStream).ToArray(); }
 
-
         public DofusWriter() : base(new MemoryStream()) { }
 
 

@@ -5,15 +5,14 @@ using Renaissance.Abstract;
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Frame.Brain;
 using Renaissance.Abstract.Network.Distribution;
-using Renaissance.Auth.Frame;
-using Renaissance.Auth.IoC.Protocol;
-using Renaissance.Auth.Manager;
-using Renaissance.Auth.Networking;
 using Renaissance.Threading;
+using Renaissance.World.Frame;
+using Renaissance.World.IoC.Protocol;
+using Renaissance.World.Networking;
 
-namespace Renaissance.Auth.IoC
+namespace Renaissance.World.IoC
 {
-    public static class AuthStartup
+    public static class WorldStartup
     {
         public static IServiceProvider Configure()
         {
@@ -22,28 +21,28 @@ namespace Renaissance.Auth.IoC
 
             var services = new ServiceCollection();
 
-            IContextHandler asyncPool = new AsyncPool(150, "Authentication");
+
+            IContextHandler asyncPool = new AsyncPool(150, "World");
 
             var messageProvider = new MessageDependency()
                                .Congifure()
                                .Build();
 
-            var frames = new FrameBuilder<AuthClient>()
-                                   .RegisterFrame<AuthenticationFrame>()
+            var frames = new FrameBuilder<WorldClient>()
+                                   .RegisterFrame<ApproachFrame>()
                                    .Build();
 
-            var frameManager = new FrameManager<AuthClient>(frames, asyncPool);
+            var frameManager = new FrameManager<WorldClient>(frames, asyncPool);
 
             var frameDispatcher = new FrameDispatcher(messageProvider, frameManager);
 
-            var authServer = new AuthServer(asyncPool);
+
+            var authServer = new WorldServer(asyncPool);
 
 
             services.AddSingleton(authServer)
                     .AddSingleton(frameDispatcher)
-                    .AddSingleton(new AccountRepository())
-                    .AddSingleton(new IdentificationManager())
-                    .AddSingleton(new NicknameManager());
+                    .AddSingleton(new AccountRepository());
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 

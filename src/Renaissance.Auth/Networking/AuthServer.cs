@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Renaissance.Abstract;
@@ -9,6 +8,7 @@ using Renaissance.Auth.IoC;
 using Renaissance.Auth.Manager;
 using Renaissance.Protocol.messages.queues;
 using Renaissance.Threading;
+using Renaissance.Threading.Synchronization.List;
 
 namespace Renaissance.Auth.Networking
 {
@@ -16,13 +16,13 @@ namespace Renaissance.Auth.Networking
     {
         private QueueManager m_queue;
 
-        public List<AuthClient> Clients { get; }
+        public SyncList<AuthClient> Clients { get; }
 
 
         public AuthServer(IContextHandler taskPool) : base(IPAddress.Parse("127.0.0.1"), 443, taskPool)
         {
             this.m_queue = new QueueManager();
-            this.Clients = new List<AuthClient>();
+            this.Clients = new SyncList<AuthClient>();
         }
 
 
@@ -46,8 +46,8 @@ namespace Renaissance.Auth.Networking
                  onClosed: () => authClient.OnDisconnected());
 
             await client.Send(new LoginQueueStatusMessage()
-                                           .InitLoginQueueStatusMessage(position, position));
-           
+                        .InitLoginQueueStatusMessage(position, position));
+
             m_queue.Queue.Enqueue(authClient);
         }
     }

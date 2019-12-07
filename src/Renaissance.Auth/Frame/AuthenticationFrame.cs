@@ -13,6 +13,7 @@ using Renaissance.Protocol.messages.common.basic;
 using Renaissance.Protocol.messages.connection;
 using Renaissance.Protocol.messages.connection.register;
 using Renaissance.Protocol.messages.queues;
+using Renaissance.Threading;
 
 namespace Renaissance.Auth.Frame
 {
@@ -47,7 +48,6 @@ namespace Renaissance.Auth.Frame
                 }
 
                 client.Account.HardwareId = msg.HardwareId;
-                client.Account.Ticket = Guid.NewGuid().ToString("N");
                 accountRepository.Update(client.Account);
 
                 if (client.Account.Nickname == null)

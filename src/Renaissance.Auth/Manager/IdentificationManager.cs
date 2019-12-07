@@ -7,6 +7,7 @@ using Renaissance.Binary.Definition;
 using Renaissance.Protocol.enums;
 using Renaissance.Protocol.messages.connection;
 using Renaissance.Protocol.types.connection;
+using Renaissance.Threading;
 
 namespace Renaissance.Auth.Manager
 {
@@ -50,6 +51,9 @@ namespace Renaissance.Auth.Manager
 
         public void SendSelectedServer(AuthClient client, CustomVar<short> serverId)
         {
+            client.Account.Ticket = new AsyncRandom().RandomString(32);
+            ServiceLocator.Provider.GetService<AccountRepository>().Update(client.Account);
+            
             client.Connection.Send(new SelectedServerDataMessage()
                              .InitSelectedServerDataMessage(serverId, "127.0.0.1",
                                                             new int[] { 5555 }, client.Account.CanCreateNewCharacter,

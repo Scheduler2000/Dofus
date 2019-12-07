@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.Auth", "src\Ren
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.Database", "src\Renaissance.Database\Renaissance.Database.csproj", "{4DF5E95F-5B60-4B83-9116-9B97E9527077}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaissance.World", "src\Renaissance.World\Renaissance.World.csproj", "{A013C46B-5466-47A5-A25D-D2E47E6F771E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,18 @@ Global
 		{4DF5E95F-5B60-4B83-9116-9B97E9527077}.Release|x64.Build.0 = Release|Any CPU
 		{4DF5E95F-5B60-4B83-9116-9B97E9527077}.Release|x86.ActiveCfg = Release|Any CPU
 		{4DF5E95F-5B60-4B83-9116-9B97E9527077}.Release|x86.Build.0 = Release|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Debug|x64.Build.0 = Debug|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Debug|x86.Build.0 = Debug|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Release|x64.ActiveCfg = Release|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Release|x64.Build.0 = Release|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Release|x86.ActiveCfg = Release|Any CPU
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +141,7 @@ Global
 		{FE8171F4-C58A-4E7D-9BFB-8C7E7721F4BD} = {1C153657-F51E-40ED-827D-2244891DC672}
 		{F7739AE2-7463-459A-9C9A-24CA80898751} = {98E37E33-E0B3-4C26-9915-65F09BBF2E04}
 		{4DF5E95F-5B60-4B83-9116-9B97E9527077} = {98E37E33-E0B3-4C26-9915-65F09BBF2E04}
+		{A013C46B-5466-47A5-A25D-D2E47E6F771E} = {98E37E33-E0B3-4C26-9915-65F09BBF2E04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CAF1FFB1-BD4B-4C94-A9CF-02C14C52A886}

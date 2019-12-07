@@ -1,18 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Network.Interface;
-using Renaissance.Auth.IoC;
+using Renaissance.World.IoC;
 
-namespace Renaissance.Auth.Networking
+namespace Renaissance.World.Networking
 {
-    public class AuthClient : IDofusClient
+    public class WorldClient : IDofusClient
     {
         public INetworkConnection Connection { get; }
 
         public Account Account { get; set; }
 
 
-        public AuthClient(INetworkConnection authConnection)
+        public WorldClient(INetworkConnection authConnection)
         { this.Connection = authConnection; }
 
 
@@ -22,12 +22,11 @@ namespace Renaissance.Auth.Networking
             {
                 Account.IsConnected = false;
                 ServiceLocator.Provider.GetService<AccountRepository>().Update(Account);
-                ServiceLocator.Provider.GetService<AuthServer>().Clients.Remove(this);
+                ServiceLocator.Provider.GetService<WorldServer>().Clients.Remove(this);
             }
         }
 
         public void Dispose()
         { Connection.Close(); }
-
     }
 }

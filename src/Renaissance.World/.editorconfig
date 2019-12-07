@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0060: Supprimer le paramètre inutilisé
+dotnet_code_quality_unused_parameters = all:none

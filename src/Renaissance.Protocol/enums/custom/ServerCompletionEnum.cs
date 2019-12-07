@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Renaissance.Protocol.enums.custom
+﻿namespace Renaissance.Protocol.enums.custom
 {
     public enum ServerCompletionEnum
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Immutable;
-using Renaissance.Threading;
 using Renaissance.Abstract.Network.Interface;
 using Renaissance.Protocol;
+using Renaissance.Threading;
 
 namespace Renaissance.Abstract.Frame.Brain
 {

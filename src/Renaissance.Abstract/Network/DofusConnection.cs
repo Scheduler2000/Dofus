@@ -18,7 +18,7 @@ namespace Renaissance.Abstract.Network
 
         public DofusConnection() : base() { }
 
-        public void Initialize(FrameDispatcher dispatcher, Action<FrameDispatcher, Frame<DofusMetadata>> dispatching,Action onClosed)
+        public void Initialize(FrameDispatcher dispatcher, Action<FrameDispatcher, Frame<DofusMetadata>> dispatching, Action onClosed)
         {
             this.m_dispatcher = dispatcher;
             this.m_dispatching = dispatching;

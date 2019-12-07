@@ -24,9 +24,9 @@ namespace Renaissance.Protocol.messages.game.character.choice
 		public CharactersListMessage() { }
 
 
-		public CharactersListMessage InitCharactersListMessage(bool _hasstartupactions)
+		public CharactersListMessage InitCharactersListMessage(CharacterBaseInformations[] _characters,bool _hasstartupactions)
 		{
-
+            base.Characters = _characters;
 			this.HasStartupActions = _hasstartupactions;
 
 			return this;
