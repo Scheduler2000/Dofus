@@ -15,15 +15,18 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
     /// </summary>
     public abstract class ClassConverter : IConverter
     {
+        private static readonly List<ClassInfo> m_parsed = new List<ClassInfo>();
         public ConverterType ConverterType { get; }
 
         public ClassConverter(ConverterType converterType)
-            => this.ConverterType = converterType;
+        { this.ConverterType = converterType; }
 
         public StringBuilder Convert(string filePath)
         {
             string[] file = File.ReadAllLines(filePath);
+
             var classInfo = Parse(file);
+            m_parsed.Add(classInfo);
 
             return WriteData(classInfo);
         }
@@ -185,7 +188,7 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
                                 .SetType(propertyType);
                 }
 
-                else if (serializeObject2.IsMatch(file[i])) // DofusType is often guess.
+                else if (serializeObject2.IsMatch(file[i])) // DofusType is guess.
                 {
                     var match = serializeObject2.Match(file[i]);
                     propertyName = propertyName = match.Groups[1].Value.FirstCharToUpper();
@@ -269,7 +272,8 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
                   .AppendLine("// </auto-generated>")
                   .AppendLine("//-------------------------------------------------------------------------------\n");
 
-            writer.AppendLine("using    Renaissance.Binary;")
+            writer.AppendLine("using    System;")
+                  .AppendLine("using    Renaissance.Binary;")
                   .AppendLine("using    Renaissance.Binary.Definition;");
 
             classInfo.Usings.ForEach(u => writer.AppendLine($"using {u}"));
@@ -296,29 +300,109 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
                   .AppendLine(Environment.NewLine);
 
             writer.Append($"\t\tpublic {classInfo.Name} Init{classInfo.Name}(");
+
+            if (classInfo.Parent != ": IDofusMessage" && classInfo.Parent != ": IDofusType")
+            {
+                bool printSubClass = false;
+                var baseClass = m_parsed.FirstOrDefault(x => classInfo.Parent.ParentClassName() == x.Name);
+                while (baseClass != null)
+                {
+                    baseClass.Properties.ForEach(p =>
+                    { writer.Append($"{p.Type} _{p.Name.ToLower()}, "); printSubClass = true; });
+
+                    baseClass = m_parsed.FirstOrDefault(x => baseClass.Parent.ParentClassName() == x.Name);
+                }
+                if (classInfo.Properties.Count == 0 && printSubClass) writer.Length -= 2;
+
+            }
             for (int i = 0; i < classInfo.Properties.Count; i++)
                 if (i == classInfo.Properties.Count - 1)
                     writer.Append($"{classInfo.Properties[i].Type} _{classInfo.Properties[i].Name.ToLower()}");
                 else
                     writer.Append($"{classInfo.Properties[i].Type} _{classInfo.Properties[i].Name.ToLower()}, ");
+
             writer.Append(")")
                   .Append(Environment.NewLine)
                   .AppendLine("\t\t{")
                   .Append(Environment.NewLine);
+
+            if (classInfo.Parent != ": IDofusMessage" && classInfo.Parent != ": IDofusType")
+            {
+                try
+                {
+                    var baseClass = m_parsed.FirstOrDefault(x => classInfo.Parent.ParentClassName() == x.Name);
+                    while (baseClass != null)
+                    {
+                        baseClass.Properties.ForEach(p => writer.AppendLine($"\t\t\tbase.{p.Name} = _{p.Name.ToLower()};"));
+                        baseClass = m_parsed.FirstOrDefault(x => baseClass.Parent.ParentClassName() == x.Name);
+                    }
+                }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            }
             classInfo.Properties.ForEach(property => writer.AppendLine($"\t\t\tthis.{property.Name} = _{property.Name.ToLower()};"));
             writer.Append(Environment.NewLine)
-                  .AppendLine("\t\t\treturn this;")
-                  .AppendLine("\t\t}")
-                  .Append(Environment.NewLine);
+              .AppendLine("\t\t\treturn this;")
+              .AppendLine("\t\t}")
+              .Append(Environment.NewLine);
 
-            writer.AppendLine($"\t\tpublic {overrideWithNew} byte[] Serialize()")
+            writer.AppendLine($"\t\tpublic {overrideWithNew} Memory<byte> Serialize()")
                   .AppendLine("\t\t{")
                   .Append(Environment.NewLine)
-                  .AppendLine("\t\t\tusing DofusWriter writer = new DofusWriter();")
+                  .AppendLine($"\t\t\tint size = default;\n");
+
+            int counter = 0;
+            int counter2 = 0;
+            classInfo.Properties.ForEach(p =>
+            {
+                switch (p.PropertyType)
+                {
+                    case PropertyType.NULL:
+                        Console.WriteLine("ERROR PROPERTY TYPE ON FILE : {0}", classInfo.Name);
+                        break;
+                    case PropertyType.IsPrimitiveArray:
+                        if (p.LenWriteType != null)
+                            writer.AppendLine($"\t\t\tsize += DofusBinaryFactory.Sizing.SizeOf(({p.LenWriteType})(this.{p.Name}.Length));");
+                        writer.AppendLine($"\t\t\tsize += DofusBinaryFactory.Sizing.SizeOf({p.Name});");
+                        break;
+                    case PropertyType.IsObjectArray:
+                        if (p.LenWriteType != null)
+                            writer.AppendLine($"\t\t\tsize += DofusBinaryFactory.Sizing.SizeOf(({p.LenWriteType})(this.{p.Name}.Length));");
+                        counter2++;
+                        writer.AppendLine($"\t\t\tvar memory{counter2} = new Memory<byte>[{p.Name}.Length];")
+                              .AppendLine($"\t\t\tfor(int i = 0; i < {p.Name}.Length; i++)")
+                              .AppendLine("\t\t\t{");
+                        if (p.HasGetterTypeId)
+                            writer.AppendLine($"\t\t\t\tsize += DofusBinaryFactory.Sizing.SizeOf(({p.LenWriteType})(this.{p.Name}[i].ProtocolId));");
+                        writer.AppendLine($"\t\t\t\tmemory{counter2}[i] = this.{p.Name}[i].Serialize();")
+                              .AppendLine($"\t\t\t\tsize += memory{counter2}[i].Length;")
+                              .AppendLine("\t\t\t}");
+                        break;
+                    case PropertyType.IsPrimitiveType:
+                        writer.AppendLine($"\t\t\tsize += DofusBinaryFactory.Sizing.SizeOf({p.Name});");
+                        break;
+                    case PropertyType.IsObjectType:
+                        if (p.HasGetterTypeId)
+                            writer.AppendLine("\t\t\tsize += 2;");
+                        counter++;
+                        writer.AppendLine($"\t\t\tvar serialized{counter} = this.{p.Name}.Serialize();");
+                        writer.AppendLine($"\t\t\tsize += serialized{counter}.Length;");
+                        break;
+                    case PropertyType.IsWrappedBool:
+                        writer.AppendLine("\t\t\tsize++;");
+                        break;
+                }
+            });
+
+            if (classInfo.Parent != ": IDofusMessage" && classInfo.Parent != ": IDofusType")
+                writer.AppendLine("\t\t\tvar parent = base.Serialize();")
+                      .AppendLine("\t\t\tsize += parent.Length;");
+
+            writer.AppendLine(Environment.NewLine)
+                  .AppendLine("\t\t\tusing DofusWriter writer = new DofusWriter(size);")
                   .Append(Environment.NewLine);
 
             if (classInfo.Parent != ": IDofusMessage" && classInfo.Parent != ": IDofusType")
-                writer.AppendLine("\t\t\twriter.Write(base.Serialize());");
+                writer.AppendLine("\t\t\twriter.WriteDatas(parent);");
 
             if (classInfo.Properties.Exists(property => property.PropertyType == PropertyType.IsWrappedBool))
             {
@@ -327,41 +411,43 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
                 {
                     writer.AppendLine($"\t\t\tbox = writer.SetFlag(box,{wrappedBoolCounter},this.{property.Name});");
                     if (classInfo.Properties.FindLast(x => x.Type == "WrappedBool").Name == property.Name)
-                        writer.AppendLine("\t\t\twriter.Write(box);");
+                        writer.AppendLine("\t\t\twriter.WriteData(box);");
                     wrappedBoolCounter++;
                 }
             }
 
+            counter = 0;
+            counter2 = 0;
             classInfo.Properties.ForEach(property =>
             {
                 switch (property.PropertyType)
                 {
                     case PropertyType.IsPrimitiveArray:
                         if (property.LenWriteType != null)
-                            writer.AppendLine($"\t\t\twriter.Write(({property.LenWriteType})(this.{property.Name}.Length));");
+                            writer.AppendLine($"\t\t\twriter.WriteData(({property.LenWriteType})(this.{property.Name}.Length));");
 
-                        writer.AppendLine($"\t\t\tforeach(var item in {property.Name})")
-                              .AppendLine("\t\t\t\twriter.Write(item);");
+                        writer.AppendLine($"\t\t\twriter.WriteDatas({property.Name});");
                         break;
                     case PropertyType.IsObjectArray:
                         if (property.LenWriteType != null)
-                            writer.AppendLine($"\t\t\twriter.Write(({property.LenWriteType})(this.{property.Name}.Length));");
-
-                        writer.AppendLine($"\t\t\tforeach(var obj in {property.Name})")
+                            writer.AppendLine($"\t\t\twriter.WriteData(({property.LenWriteType})(this.{property.Name}.Length));");
+                        counter2++;
+                        writer.AppendLine($"\t\t\tfor(int i = 0; i < memory{counter2}.Length; i++)")
                               .AppendLine("\t\t\t{");
 
                         if (property.HasGetterTypeId)
-                            writer.AppendLine($"\t\t\t\twriter.Write((short)(obj.ProtocolId));");
-                        writer.AppendLine("\t\t\t\twriter.Write(obj.Serialize());");
+                            writer.AppendLine($"\t\t\t\twriter.WriteData((short)({property.Name}[i].ProtocolId));");
+                        writer.AppendLine($"\t\t\t\twriter.WriteDatas(memory{counter2}[i]);");
                         writer.AppendLine("\t\t\t}");
                         break;
                     case PropertyType.IsPrimitiveType:
-                        writer.AppendLine($"\t\t\twriter.Write(this.{property.Name});");
+                        writer.AppendLine($"\t\t\twriter.WriteData(this.{property.Name});");
                         break;
                     case PropertyType.IsObjectType:
                         if (property.HasGetterTypeId)
-                            writer.AppendLine($"\t\t\twriter.Write((short)({property.Name}.ProtocolId));");
-                        writer.AppendLine($"\t\t\twriter.Write(this.{property.Name}.Serialize());");
+                            writer.AppendLine($"\t\t\twriter.WriteData((short)({property.Name}.ProtocolId));");
+                        counter++;
+                        writer.AppendLine($"\t\t\twriter.WriteDatas(serialized{counter});");
                         break;
                     case PropertyType.NULL:
                         Console.WriteLine("ERROR PROPERTY TYPE ON FILE : {0}", classInfo.Name);
@@ -411,7 +497,7 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
                               .AppendLine("\t\t\t{");
 
                         if (property.HasGetterTypeId)
-                            writer.AppendLine("reader.Skip(2); // skip read short for protocolManager.GetInstance(short)");
+                            writer.AppendLine("\t\t\treader.Skip(2); // skip protocolManager.GetInstance(short)");
 
                         writer.AppendLine($"\t\t\t\tthis.{property.Name}[i] = new {property.Type.RemoveCharactersFromTheEnd('[')}();")
                               .AppendLine($"\t\t\t\tthis.{property.Name}[i].Deserialize(reader);")
@@ -422,7 +508,7 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
                         break;
                     case PropertyType.IsObjectType:
                         if (property.HasGetterTypeId)
-                            writer.AppendLine("reader.Skip(2); // skip read short");
+                            writer.AppendLine("\t\t\treader.Skip(2); // skip protocolManager.GetInstance(short)");
 
                         writer.AppendLine($"\t\t\tthis.{property.Name} = new {property.Type}();")
                               .AppendLine($"\t\t\tthis.{property.Name}.Deserialize(reader);");

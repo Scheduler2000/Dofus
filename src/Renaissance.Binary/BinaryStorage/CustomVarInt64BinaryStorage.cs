@@ -56,8 +56,40 @@ namespace Renaissance.Binary.BinaryStorage
                 return new CustomVar<long>((high * 4294967296) + low);
             };
 
-        public Action<IWriter, CustomVar<long>> WriteValue
-        { get => null; }
+        public Action<IWriter, CustomVar<long>> WriteValue => (writer, number) =>
+        {
+            void WriteVarInt32(uint value)
+            {
+                while (value >= 128)
+                {
+                    writer.WriteValue((byte)((value & 127) | 128));
+                    value >>= 7;
+                }
+                writer.WriteValue((byte)value);
+            }
+
+            double value = number.Value;
+            uint low = (uint)value;
+            int high = (int)Math.Floor(value / 4294967296);
+
+            if (high == 0)
+                WriteVarInt32(low);
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    writer.WriteValue((byte)((low & 127) | 128));
+                    low >>= 7;
+                }
+                if ((high & (268435455 << 3)) == 0)
+                    writer.WriteValue((byte)((high << 4) | low));
+                else
+                {
+                    writer.WriteValue((byte)((((high << 4) | low) & 127) | 128));
+                    WriteVarInt32((uint)high >> 3);
+                }
+            }
+        };
 
     }
 }

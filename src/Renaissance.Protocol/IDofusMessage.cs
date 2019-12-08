@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Renaissance.Binary;
 
 namespace Renaissance.Protocol
@@ -7,7 +8,7 @@ namespace Renaissance.Protocol
     {
         int ProtocolId { get; }
 
-        byte[] Serialize();
+        Memory<byte> Serialize();
 
         void Deserialize(DofusReader reader);
     }

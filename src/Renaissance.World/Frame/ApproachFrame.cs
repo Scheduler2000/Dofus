@@ -11,7 +11,6 @@ using Renaissance.Protocol.messages.game.approach;
 using Renaissance.Protocol.messages.game.basic;
 using Renaissance.Protocol.messages.game.character.choice;
 using Renaissance.Protocol.messages.secure;
-using Renaissance.Protocol.types.game.character.choice;
 using Renaissance.World.IoC;
 using Renaissance.World.Networking;
 
@@ -40,7 +39,7 @@ namespace Renaissance.World.Frame
                 client.Connection.Send(new AccountCapabilitiesMessage()
                       .InitAccountCapabilitiesMessage(client.Account.Id, new WrappedBool(true),
                                                       new CustomVar<int>(262143), new CustomVar<int>(262143),
-                                                      0, new WrappedBool(client.Account.CanCreateNewCharacter),0));
+                                                      0, new WrappedBool(client.Account.CanCreateNewCharacter), 0));
 
                 client.Connection.Send(new TrustStatusMessage()
                       .InitTrustStatusMessage(new WrappedBool(true), new WrappedBool(true)));
@@ -50,7 +49,7 @@ namespace Renaissance.World.Frame
         [MessageHandler(CharactersListRequestMessage.NetworkId)]
         public void HandleCharactersListRequestMessage(WorldClient client, IDofusMessage message)
         {
-           /*TODO*/
+            /*TODO*/
         }
 
         [MessageHandler(BasicPingMessage.NetworkId)]

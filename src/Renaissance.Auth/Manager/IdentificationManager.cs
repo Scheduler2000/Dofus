@@ -53,7 +53,7 @@ namespace Renaissance.Auth.Manager
         {
             client.Account.Ticket = new AsyncRandom().RandomString(32);
             ServiceLocator.Provider.GetService<AccountRepository>().Update(client.Account);
-            
+
             client.Connection.Send(new SelectedServerDataMessage()
                              .InitSelectedServerDataMessage(serverId, "127.0.0.1",
                                                             new int[] { 5555 }, client.Account.CanCreateNewCharacter,

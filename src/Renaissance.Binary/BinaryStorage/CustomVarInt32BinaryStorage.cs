@@ -26,8 +26,27 @@ namespace Renaissance.Binary.BinaryStorage
                 return new CustomVar<int>(result);
             };
 
-        public Action<IWriter, CustomVar<int>> WriteValue
-        { get => null; }
+        public Action<IWriter, CustomVar<int>> WriteValue => (writer, val) =>
+        {
+            int value = val.Value;
+
+            if (value >= 0 && value <= sbyte.MaxValue)
+            {
+                writer.WriteValue((byte)value);
+                return;
+            }
+
+            while (value != 0)
+            {
+                var b = value & sbyte.MaxValue;
+                value = (int)((uint)value >> 7);
+
+                if (value > 0)
+                    b |= 128;
+
+                writer.WriteValue((byte)b);
+            }
+        };
 
     }
 }

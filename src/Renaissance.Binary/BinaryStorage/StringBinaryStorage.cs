@@ -15,8 +15,14 @@ namespace Renaissance.Binary.BinaryStorage
             return Encoding.UTF8.GetString(reader.ReadValues<byte>(len));
         };
 
-        public Action<IWriter, string> WriteValue
-        { get => null; }
+        public Action<IWriter, string> WriteValue => (writer, str) =>
+        {
+            byte[] data = Encoding.UTF8.GetBytes(str);
+            short len = (short)data.Length;
+
+            writer.WriteValue(len);
+            writer.WriteBytes(data);
+        };
 
     }
 }

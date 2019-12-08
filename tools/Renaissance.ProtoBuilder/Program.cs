@@ -1,4 +1,5 @@
-﻿using Renaissance.Tools.ProtoBuilder.Builder;
+﻿using System;
+using Renaissance.Tools.ProtoBuilder.Builder;
 
 namespace Renaissance.ProtoBuilder
 {
@@ -10,13 +11,17 @@ namespace Renaissance.ProtoBuilder
             string typePath = @"C:scripts\com\ankamagames\dofus\network\types";
             string enumPath = @"C:scripts\com\ankamagames\dofus\network\enums";
 
-            var mb = new MessageBuilder(messagePath);
-            var tb = new TypeBuilder(typePath);
-            var eb = new EnumBuilder(enumPath);
+            try
+            {
+                var eb = new EnumBuilder(enumPath);
+                var mb = new MessageBuilder(messagePath);
+                var tb = new TypeBuilder(typePath);
 
-            mb.BuildFiles();
-            tb.BuildFiles();
-            eb.BuildFiles();
+                mb.BuildFiles();
+                tb.BuildFiles();
+            }
+            catch (Exception ex)
+            { Console.WriteLine(ex.ToString()); }
         }
     }
 }

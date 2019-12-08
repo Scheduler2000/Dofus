@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace Renaissance.Tools.ProtoBuilder.Util
 {
@@ -43,10 +44,21 @@ namespace Renaissance.Tools.ProtoBuilder.Util
                     break;
                 count++;
             }
-
-
-
             return str.Substring(0, str.Length - count);
+        }
+
+        public static string ParentClassName(this string str)
+        {
+            StringBuilder parent = new StringBuilder();
+
+            for (int i = 2; i < str.Length; i++)
+            {
+                if (str[i] == ',')
+                    break;
+                else parent.Append(str[i]);
+            }
+
+            return parent.ToString();
         }
     }
 }

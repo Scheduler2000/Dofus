@@ -13,7 +13,6 @@ using Renaissance.Protocol.messages.common.basic;
 using Renaissance.Protocol.messages.connection;
 using Renaissance.Protocol.messages.connection.register;
 using Renaissance.Protocol.messages.queues;
-using Renaissance.Threading;
 
 namespace Renaissance.Auth.Frame
 {

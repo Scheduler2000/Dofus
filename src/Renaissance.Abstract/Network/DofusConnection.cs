@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Buffers;
 using System.Threading.Tasks;
 using Astron.Network;
 using Astron.Network.Framing;
@@ -36,8 +35,8 @@ namespace Renaissance.Abstract.Network
         /// <returns></returns>
         public async ValueTask Send<TMessage>(TMessage message) where TMessage : IDofusMessage
         {
-            var payload = new ReadOnlySequence<byte>(message.Serialize());
-            var metadata = new DofusMetadata(message.ProtocolId, (int)payload.Length);
+            var payload = message.Serialize();
+            var metadata = new DofusMetadata(message.ProtocolId, payload.Length);
             var frame = new Frame<DofusMetadata>(payload, metadata);
 
             await SendAsync(frame);

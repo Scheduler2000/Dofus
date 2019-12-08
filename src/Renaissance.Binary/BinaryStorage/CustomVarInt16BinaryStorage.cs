@@ -32,7 +32,29 @@ namespace Renaissance.Binary.BinaryStorage
             throw new ArgumentOutOfRangeException($"{nameof(CustomVar<short>)} from reader is invalid.");
         };
 
-        public Action<IWriter, CustomVar<short>> WriteValue
-        { get => null; }
+        public Action<IWriter, CustomVar<short>> WriteValue => (writer, val) =>
+        {
+
+            short value = val.Value;
+
+            if (value >= sbyte.MinValue && value <= sbyte.MaxValue)
+            {
+                writer.WriteValue((sbyte)value);
+                return;
+            }
+
+            var c = value & ushort.MaxValue;
+            while (c != 0)
+            {
+                var b = c & sbyte.MaxValue;
+                c = (int)((uint)c >> 7);
+
+                if (c > 0)
+                    b |= 128;
+
+                writer.WriteValue((byte)b);
+            }
+        };
+
     }
 }

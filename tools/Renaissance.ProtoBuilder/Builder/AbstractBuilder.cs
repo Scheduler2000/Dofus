@@ -20,7 +20,7 @@ namespace Renaissance.Tools.ProtoBuilder.Builder
             this.m_searchOption = searchOption;
         }
 
-        public void BuildFiles() // TODO : SUB DIRECTORIES CREATE IN FOREACH LOOP 
+        public void BuildFiles()
         {
             Console.WriteLine($"------------ Generating {m_converter.ConverterType} files ------------ : \n");
 
