@@ -8,6 +8,13 @@ namespace Renaissance.Binary
     {
         private readonly IWriter m_writer;
 
+        public int Position
+        {
+            get => m_writer.Position;
+            set => m_writer.Seek(value);
+        }
+
+
         public Memory<byte> Data
         { get => m_writer.GetBuffer(); }
 

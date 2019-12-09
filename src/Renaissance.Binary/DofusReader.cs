@@ -8,6 +8,12 @@ namespace Renaissance.Binary
 
         private readonly IReader m_reader;
 
+        public int Position
+        {
+            get => m_reader.Position;
+            set => m_reader.Seek(value);
+        }
+
         public DofusReader(Memory<byte> payload)
             => this.m_reader = DofusBinaryFactory.BinaryFactory.Get(payload);
 
@@ -18,6 +24,19 @@ namespace Renaissance.Binary
                 throw new ArgumentException("offset must be lesser than 8");
 
             return (flag & (byte)(1 << offset)) > 0;
+        }
+
+        public TData ReadFrom<TData>(int position, bool reset)
+        {
+            int pos = m_reader.Position;
+
+            m_reader.Seek(position);
+            TData data = m_reader.ReadValue<TData>();
+
+            if (reset)
+                m_reader.Seek(pos);
+
+            return data;
         }
 
         public TData Read<TData>()

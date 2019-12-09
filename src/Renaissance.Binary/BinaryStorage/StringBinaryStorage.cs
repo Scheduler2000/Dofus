@@ -11,14 +11,15 @@ namespace Renaissance.Binary.BinaryStorage
     {
         public Func<IReader, string> ReadValue => (reader) =>
         {
-            var len = reader.ReadValue<short>();
-            return Encoding.UTF8.GetString(reader.ReadValues<byte>(len));
+            var len = reader.ReadValue<ushort>();
+            var data = reader.ReadValues<byte>(len);
+            return Encoding.UTF8.GetString(data);
         };
 
         public Action<IWriter, string> WriteValue => (writer, str) =>
         {
             byte[] data = Encoding.UTF8.GetBytes(str);
-            short len = (short)data.Length;
+            ushort len = (ushort)data.Length;
 
             writer.WriteValue(len);
             writer.WriteBytes(data);

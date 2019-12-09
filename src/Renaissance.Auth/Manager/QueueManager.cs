@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Renaissance.Auth.Networking;
 using Renaissance.Auth.Patch;
 using Renaissance.Protocol.messages.handshake;
@@ -15,7 +14,7 @@ namespace Renaissance.Auth.Manager
         public QueueManager()
         { this.Queue = new Queue<AuthClient>(); }
 
-        public void Process() /* theoretically thread safe (Async Pool)*/
+        public void Process() /* theoretically thread safe executed by (Async Pool)*/
         {
             short position;
 
@@ -23,7 +22,7 @@ namespace Renaissance.Auth.Manager
             {
                 position = default;
 
-                foreach (var client in Queue ?? Enumerable.Empty<AuthClient>())
+                foreach (var client in Queue)
                 {
                     position++;
                     client.Connection.Send(new LoginQueueStatusMessage()
