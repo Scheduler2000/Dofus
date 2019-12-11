@@ -1,0 +1,22 @@
+﻿<Window x:Class="Renaissance.WorldEditor.SavingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Renaissance.WorldEditor"
+        mc:Ignorable="d"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True"
+        Title="LoadingWindow" Height="114" Width="451" ShowInTaskbar="False" Background="#50C878">
+
+    <Border BorderBrush="#FFBCe2E3" BorderThickness="2">
+        <StackPanel>
+            <Label FontSize="45" HorizontalAlignment="Center" Foreground="OrangeRed" Content="WorldEditor" Margin="0">
+                <Label.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" />
+                </Label.Effect>
+            </Label>
+            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" FontSize="20"
+                       Text="Saving ..." Foreground="#FF475366" />
+        </StackPanel>
+    </Border>
+</Window>

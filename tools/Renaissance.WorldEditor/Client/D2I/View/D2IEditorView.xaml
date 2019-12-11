@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Renaissance.WorldEditor.Client.D2I.View.D2IEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="561" />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <UniformGrid Rows="1" DockPanel.Dock="Top" HorizontalAlignment="Left" Grid.Row="0" Width="785">
+            <Button Margin="3" Command="{Binding AddTextRowCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="0,0,3,0" Height="16" Source="\Assets\action_add.png" Stretch="Fill" Width="16" />
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                        <Run Text="Add Text" />
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Margin="3" Command="{Binding AddTextUiCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="0,0,3,0" Height="16" Source="\Assets\action_add.png" Stretch="Fill" Width="16" />
+                    <TextBlock TextAlignment="Center" Text="Add UI Text" />
+                </StackPanel>
+            </Button>
+
+            <Button Margin="3" Command="{Binding RemoveCommand}" CommandParameter="{Binding SelectedItems, ElementName=DofusDataGrid}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="0,0,3,0" Height="16" Source="\Assets\action_cancel.png" Stretch="Fill" Width="16" />
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                        <Run Text="Remove" />
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Margin="3" Command="{Binding ResetCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="0,0,3,0" Height="16" Source="\Assets\refresh.png" Stretch="Fill" Width="16" />
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Reset" />
+                </StackPanel>
+            </Button>
+            <Button Margin="3" Command="{Binding SaveCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="0,0,3,0" Height="16" Source="\Assets\save.png" Stretch="Fill" Width="16" />
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Save" />
+                </StackPanel>
+            </Button>
+            <Button Margin="3" Command="{Binding LoadCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="0,0,3,0" Height="16" Source="\Assets\page_white.png" Stretch="Fill" Width="16" />
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Load" />
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+
+        <DataGrid x:Name="DofusDataGrid" Grid.Row="1" Foreground="White" ItemsSource="{Binding Rows}" IsReadOnly="True"
+                  AutoGenerateColumns="false" CanUserAddRows="False" CanUserDeleteRows="False" SelectionChanged="DofusDataGrid_SelectionChanged">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id"  Foreground="Red" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="Texte" Foreground="Black" Binding="{Binding Path=Text}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <Border Grid.Row="2" Margin="3,3,3,3" BorderBrush="#FFD3E1F1" CornerRadius="4" BorderThickness="2">
+            <DockPanel>
+                <TextBlock Text="Find ..." Margin="3" VerticalAlignment="Center" />
+                <ComboBox SelectedIndex="1" DockPanel.Dock="Right" Margin="3" Width="80" SelectedValue="{Binding SearchType, Mode=TwoWay}" SelectedValuePath="Content">
+                    <ComboBoxItem>Texte</ComboBoxItem>
+                    <ComboBoxItem>Id</ComboBoxItem>
+                </ComboBox>
+                <Button Content="Next" Width="80" DockPanel.Dock="Right" Margin="3" Command="{Binding FindNextCommand}" />
+                <Button Content="Find !" Width="80" DockPanel.Dock="Right" Margin="3" Command="{Binding FindCommand}" />
+                <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3" TextChanged="TextBox_TextChanged" />
+
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="3" Margin="3,3,3,3" BorderBrush="#FFD3E1F1" CornerRadius="4" BorderThickness="2">
+            <DockPanel>
+                <TextBlock Text="Edit : " Margin="3" VerticalAlignment="Center"/>
+                <Button Content="Apply" Width="80" DockPanel.Dock="Right" Margin="3" Command="{Binding ApplyCommand}" CommandParameter="{Binding SelectedItem, ElementName=DofusDataGrid}"/>
+                <Button Content="Edit" Width="80" DockPanel.Dock="Right" Margin="3" Command="{Binding EditCommand}"  CommandParameter="{Binding SelectedItem, ElementName=DofusDataGrid}"/>
+                <TextBox Text="{Binding EditText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="3" TextWrapping="Wrap" AcceptsReturn="True"/>
+            </DockPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

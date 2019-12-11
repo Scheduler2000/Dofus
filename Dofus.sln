@@ -21,11 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.Database", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.World", "src\Renaissance.World\Renaissance.World.csproj", "{A013C46B-5466-47A5-A25D-D2E47E6F771E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaissance.Data", "src\Renaissance.Data\Renaissance.Data.csproj", "{9BD53AEF-541E-4239-AE24-B29A1433B0FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.Data", "src\Renaissance.Data\Renaissance.Data.csproj", "{9BD53AEF-541E-4239-AE24-B29A1433B0FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.ProtoBuilder", "tools\Renaissance.ProtoBuilder\Renaissance.ProtoBuilder.csproj", "{140BE3C4-4EB4-4978-B7F0-466EE65BEFD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaissance.WorldEditor", "tools\Renaissance.WorldEditor\Renaissance.WorldEditor.csproj", "{B22EF905-CCA4-4980-A64E-083B4B807FAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renaissance.WorldEditor", "tools\Renaissance.WorldEditor\Renaissance.WorldEditor.csproj", "{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,18 +145,18 @@ Global
 		{140BE3C4-4EB4-4978-B7F0-466EE65BEFD4}.Release|x64.Build.0 = Release|Any CPU
 		{140BE3C4-4EB4-4978-B7F0-466EE65BEFD4}.Release|x86.ActiveCfg = Release|Any CPU
 		{140BE3C4-4EB4-4978-B7F0-466EE65BEFD4}.Release|x86.Build.0 = Release|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Debug|x64.Build.0 = Debug|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Debug|x86.Build.0 = Debug|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Release|x64.ActiveCfg = Release|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Release|x64.Build.0 = Release|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Release|x86.ActiveCfg = Release|Any CPU
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD}.Release|x86.Build.0 = Release|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Debug|x64.Build.0 = Debug|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Release|x64.ActiveCfg = Release|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Release|x64.Build.0 = Release|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7527CA9-D5B6-4436-BFF3-84AFDD6085EF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,7 +171,6 @@ Global
 		{A013C46B-5466-47A5-A25D-D2E47E6F771E} = {98E37E33-E0B3-4C26-9915-65F09BBF2E04}
 		{9BD53AEF-541E-4239-AE24-B29A1433B0FF} = {98E37E33-E0B3-4C26-9915-65F09BBF2E04}
 		{140BE3C4-4EB4-4978-B7F0-466EE65BEFD4} = {1C153657-F51E-40ED-827D-2244891DC672}
-		{B22EF905-CCA4-4980-A64E-083B4B807FAD} = {1C153657-F51E-40ED-827D-2244891DC672}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CAF1FFB1-BD4B-4C94-A9CF-02C14C52A886}

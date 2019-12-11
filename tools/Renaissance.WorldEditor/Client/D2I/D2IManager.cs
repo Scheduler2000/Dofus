@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Renaissance.Data.D2I;
 
-namespace Renaissance.WorldEditor.D2I
+namespace Renaissance.WorldEditor.Client.D2I
 {
     public class D2IManager
     {

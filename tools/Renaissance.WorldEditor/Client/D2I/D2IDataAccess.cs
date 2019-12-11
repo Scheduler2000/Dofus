@@ -3,7 +3,7 @@ using System.Linq;
 using Renaissance.Data.D2I;
 using Renaissance.Data.Utils;
 
-namespace Renaissance.WorldEditor.D2I
+namespace Renaissance.WorldEditor.Client.D2I
 {
     public class D2IDataAccess
     {
@@ -22,15 +22,9 @@ namespace Renaissance.WorldEditor.D2I
         public string GetText(int key)
         { return Entries.TryGetValue(key, out var entry) ? entry.Text : null; }
 
-        public Dictionary<int, string> GetAllText()
-        { return Entries.ToDictionary(x => x.Key, y => y.Value.Text); }
-
 
         public string GetUIText(string textKey)
         { return UIEntries.TryGetValue(textKey, out var entry) ? entry.Text : null; }
-
-        public Dictionary<string, string> GetAllUIText()
-        { return UIEntries.ToDictionary(x => x.Key, y => y.Value.Text); }
 
 
         public void SetText(int id, string value)
@@ -61,5 +55,6 @@ namespace Renaissance.WorldEditor.D2I
 
         public void DeleteUIText(string id)
         { UIEntries.Remove(id); }
+
     }
 }

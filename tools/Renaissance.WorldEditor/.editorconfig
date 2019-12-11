@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# IDE0002: Simplifier l'accès au membre
+dotnet_diagnostic.IDE0002.severity = none
+
+# IDE0017: Simplifier l'initialisation des objets
+dotnet_style_object_initializer = true:none
+
+# IDE0044: Ajouter un modificateur readonly
+dotnet_style_readonly_field = true:none
