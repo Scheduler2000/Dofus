@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using Renaissance.WorldEditor.Client.D2I.Grid;
 using Renaissance.WorldEditor.Command;
+using Renaissance.WorldEditor.Utils;
 
 namespace Renaissance.WorldEditor.Client.D2I.ViewModel
 {
@@ -280,9 +281,19 @@ namespace Renaissance.WorldEditor.Client.D2I.ViewModel
             row.Text = m_editText;
 
             if (row is D2IUiTextRow uiText)
+            {
                 m_editor.DataAccess.UIEntries[uiText.Id].Text = m_editText;
+                if (m_editor.DataAccess.UIEntries[uiText.Id].UseUndiactricalText)
+                    m_editor.DataAccess.UIEntries[uiText.Id].UnDiactricialText = m_editText.RemoveAccents().ToLower();
+            }
             else
-                m_editor.DataAccess.Entries[(row as D2ITextRow).Id].Text = m_editText;
+            {
+                var entry = row as D2ITextRow;
+
+                m_editor.DataAccess.Entries[entry.Id].Text = m_editText;
+                if (m_editor.DataAccess.Entries[entry.Id].UseUndiactricalText)
+                    m_editor.DataAccess.Entries[entry.Id].UnDiactricialText = m_editText.RemoveAccents().ToLower();
+            }
 
             EditText = "Texte modifié avec succès !";
             ApplyCommand.InvokeCanExecuteChanged();

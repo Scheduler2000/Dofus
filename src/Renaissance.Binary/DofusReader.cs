@@ -14,6 +14,8 @@ namespace Renaissance.Binary
             set => m_reader.Seek(value);
         }
 
+        public int Count { get => m_reader.Count; }
+
         public DofusReader(Memory<byte> payload)
             => this.m_reader = DofusBinaryFactory.BinaryFactory.Get(payload);
 
@@ -39,8 +41,24 @@ namespace Renaissance.Binary
             return data;
         }
 
+        public byte[] ReadFrom(int position, int bytesCount, bool reset)
+        {
+            int pos = m_reader.Position;
+
+            m_reader.Seek(position);
+            byte[] data = ReadBytes(bytesCount);
+
+            if (reset)
+                m_reader.Seek(pos);
+
+            return data;
+        }
+
         public TData Read<TData>()
         { return m_reader.ReadValue<TData>(); }
+
+        public byte[] ReadBytes(int count)
+        { return m_reader.ReadValues<byte>(count); }
 
         public void Skip(int count) { m_reader.Advance(count); }
     }

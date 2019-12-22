@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Renaissance.Data.D2I;
-using Renaissance.Data.Utils;
+using Renaissance.WorldEditor.Utils;
 
 namespace Renaissance.WorldEditor.Client.D2I
 {

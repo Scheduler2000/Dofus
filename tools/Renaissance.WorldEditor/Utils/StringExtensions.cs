@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Renaissance.Data.Utils
+namespace Renaissance.WorldEditor.Utils
 {
     public static class StringExtensions
     {

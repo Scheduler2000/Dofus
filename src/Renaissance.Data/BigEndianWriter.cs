@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using Be.IO;
 
-namespace Renaissance.Data.Utils
+namespace Renaissance.Data
 {
     public class BigEndianWriter : BeBinaryWriter
     {

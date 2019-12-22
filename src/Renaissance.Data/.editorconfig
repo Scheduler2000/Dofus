@@ -2,3 +2,24 @@
 
 # IDE0044: Ajouter un modificateur readonly
 dotnet_style_readonly_field = true:none
+
+# IDE0004: Supprimer le cast inutile
+dotnet_diagnostic.IDE0004.severity = none
+
+# IDE0032: Utiliser auto-property
+dotnet_style_prefer_auto_properties = true:none
+
+# IDE0067: Supprimer les objets avant la mise hors de portée
+dotnet_diagnostic.IDE0067.severity = none
+
+# IDE0048: Ajouter des parenthèses pour plus de clarté
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:none
+
+# IDE0048: Ajouter des parenthèses pour plus de clarté
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:none
+
+# IDE0048: Ajouter des parenthèses pour plus de clarté
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:none
+
+# IDE0048: Ajouter des parenthèses pour plus de clarté
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:none

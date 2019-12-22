@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Renaissance.Binary;
-using Renaissance.Data.Utils;
 
 namespace Renaissance.Data.D2I
 {
@@ -65,7 +64,7 @@ namespace Renaissance.Data.D2I
 
         public byte[] Save(Dictionary<int, D2IEntry> entries, Dictionary<string, D2IEntry> uiEntries)
         {
-            /* Todo : size calculation + DofusWriter (see Renaissance.Binary) */
+            /* Improvement : size calculation + DofusWriter (see Renaissance.Binary) */
 
             using var contentWriter = new BigEndianWriter();
             using var indexWriter = new BigEndianWriter();
