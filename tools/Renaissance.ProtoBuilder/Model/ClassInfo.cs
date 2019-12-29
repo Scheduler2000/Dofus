@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Renaissance.Tools.ProtoBuilder.Parsing;
 
 namespace Renaissance.Tools.ProtoBuilder.Model
@@ -7,6 +8,8 @@ namespace Renaissance.Tools.ProtoBuilder.Model
     public class ClassInfo
     {
         public string Name { get; set; }
+
+        public string Package { get; set; }
 
         public string Namespace { get; set; }
 

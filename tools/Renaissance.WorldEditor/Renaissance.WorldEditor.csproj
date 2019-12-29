@@ -108,4 +108,8 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Client\D2P\" />
+  </ItemGroup>
+
 </Project>

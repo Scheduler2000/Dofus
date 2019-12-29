@@ -7,6 +7,7 @@ namespace Renaissance.Tools.ProtoBuilder.Parsing
         Enum,
         NetworkMessage,
         NetworkType,
+        D2OType,
     }
 
     public interface IConverter

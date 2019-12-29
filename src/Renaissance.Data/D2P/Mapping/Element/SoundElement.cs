@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Renaissance.Binary;
 
 namespace Renaissance.Data.D2P.Mapping.Element
@@ -18,7 +19,7 @@ namespace Renaissance.Data.D2P.Mapping.Element
         public int NullVolumeDistance { get; private set; }
 
 
-        public SoundElement(Cell cell)
+        public SoundElement(CellElement cell)
             : base(cell, ElementTypesEnum.Sound) { }
 
         public override void FromRaw(DofusReader reader, int mapVersion)

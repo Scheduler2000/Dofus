@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Renaissance.Binary\Renaissance.Binary.csproj" />
+    <ProjectReference Include="..\Renaissance.Protocol\Renaissance.Protocol.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,11 +7,11 @@ namespace Renaissance.Data.D2P.Mapping.Element
     /// </summary>
     public abstract class BasicElement
     {
-        public Cell Cell { get; protected set; }
+        public CellElement Cell { get; protected set; }
 
         public int ElementType { get; }
 
-        protected BasicElement(Cell cell, ElementTypesEnum elementType)
+        protected BasicElement(CellElement cell, ElementTypesEnum elementType)
         {
             this.Cell = cell;
             this.ElementType = (int)elementType;

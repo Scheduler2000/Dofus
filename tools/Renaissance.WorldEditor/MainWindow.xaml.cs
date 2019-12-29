@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 using MaterialDesignThemes.Wpf;
+
 using Renaissance.WorldEditor.Client.D2I.View;
-using Renaissance.WorldEditor.Client.D2P;
 using Renaissance.WorldEditor.Menu;
 
 namespace Renaissance.WorldEditor
@@ -18,8 +19,6 @@ namespace Renaissance.WorldEditor
 
         public MainWindow()
         {
-            new D2PManager(@"C:\Users\Perospero\Desktop\Client2.53\content\maps").ExtractAllData();
-
             InitializeComponent();
 
             Instance = this;

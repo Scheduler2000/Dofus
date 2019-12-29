@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Renaissance.Binary;
 
 namespace Renaissance.Data.D2P.Mapping
@@ -12,7 +13,7 @@ namespace Renaissance.Data.D2P.Mapping
 
         public int CellsCount { get; private set; }
 
-        public Cell[] Cells { get; private set; }
+        public CellElement[] Cells { get; private set; }
 
         public Layer() { }
 
@@ -23,13 +24,13 @@ namespace Renaissance.Data.D2P.Mapping
             {
                 this.LayerId = mapVersion >= 9 ? reader.Read<byte>() : reader.Read<byte>();
                 this.CellsCount = reader.Read<short>();
-                this.Cells = new Cell[CellsCount];
+                this.Cells = new CellElement[CellsCount];
 
                 if (CellsCount > 0)
                 {
                     for (int i = 0; i < CellsCount; i++)
                     {
-                        var cell = new Cell(this);
+                        var cell = new CellElement(this);
                         cell.FromRaw(reader, mapVersion);
                         Cells[i] = cell;
                     }

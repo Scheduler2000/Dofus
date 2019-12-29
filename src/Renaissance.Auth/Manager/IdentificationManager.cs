@@ -1,5 +1,7 @@
 ﻿using System.Text;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Auth.IoC;
 using Renaissance.Auth.Networking;

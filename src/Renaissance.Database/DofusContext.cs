@@ -1,5 +1,7 @@
 ﻿using System;
+
 using Microsoft.EntityFrameworkCore;
+
 using Renaissance.Database.Extension;
 using Renaissance.Database.Pattern;
 

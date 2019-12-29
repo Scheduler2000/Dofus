@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Renaissance.Tools.ProtoBuilder.Parsing;
 
 namespace Renaissance.Tools.ProtoBuilder.Model.Builder
@@ -13,6 +14,12 @@ namespace Renaissance.Tools.ProtoBuilder.Model.Builder
         public ClassInfoBuilder SetClassName(string name)
         {
             m_classInfo.Name = name;
+            return this;
+        }
+
+        public ClassInfoBuilder SetPackage(string package)
+        {
+            m_classInfo.Package = package;
             return this;
         }
 
@@ -34,7 +41,8 @@ namespace Renaissance.Tools.ProtoBuilder.Model.Builder
         }
         public ClassInfoBuilder AddUsing(string import)
         {
-            m_classInfo.Usings.Add(import);
+            if (!m_classInfo.Usings.Contains(import))
+                m_classInfo.Usings.Add(import);
             return this;
         }
 

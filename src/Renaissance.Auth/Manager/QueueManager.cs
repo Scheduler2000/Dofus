@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Renaissance.Auth.Networking;
 using Renaissance.Auth.Patch;
 using Renaissance.Protocol.messages.handshake;

@@ -1,5 +1,6 @@
 ﻿
 using System;
+
 using Renaissance.Binary;
 
 namespace Renaissance.Protocol

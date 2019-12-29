@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+
 using Astron.Binary.Reader;
 
 namespace Renaissance.Binary
@@ -59,6 +61,9 @@ namespace Renaissance.Binary
 
         public byte[] ReadBytes(int count)
         { return m_reader.ReadValues<byte>(count); }
+
+        public string ReadUTBytes(ushort len)
+        { return Encoding.UTF8.GetString(ReadBytes(len)); }
 
         public void Skip(int count) { m_reader.Advance(count); }
     }

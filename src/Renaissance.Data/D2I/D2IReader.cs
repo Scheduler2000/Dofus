@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+
 using Renaissance.Binary;
 
 namespace Renaissance.Data.D2I
@@ -9,17 +8,16 @@ namespace Renaissance.Data.D2I
     {
         private byte[] m_data;
 
-        private List<int> m_sortedIndex = new List<int>();
-
         public D2IReader(byte[] data)
         { this.m_data = data; }
 
 
-        public void Read(out Dictionary<int, D2IEntry> entries, out Dictionary<string, D2IEntry> uiEntries)
+        public void Read(out Dictionary<int, D2IEntry> entries, out Dictionary<string, D2IEntry> uiEntries, out List<int> sortedIndex)
         {
             var reader = new DofusReader(m_data);
             entries = new Dictionary<int, D2IEntry>();
             uiEntries = new Dictionary<string, D2IEntry>();
+            sortedIndex = new List<int>();
 
             reader.Position = reader.Read<int>();
             int indexLen = reader.Read<int>();
@@ -58,62 +56,9 @@ namespace Renaissance.Data.D2I
             }
 
             for (indexLen = reader.Read<int>(); indexLen > 0; indexLen -= 4)
-                m_sortedIndex.Add(reader.Read<int>());
+                sortedIndex.Add(reader.Read<int>());
 
         }
 
-        public byte[] Save(Dictionary<int, D2IEntry> entries, Dictionary<string, D2IEntry> uiEntries)
-        {
-            /* Improvement : size calculation + DofusWriter (see Renaissance.Binary) */
-
-            using var contentWriter = new BigEndianWriter();
-            using var indexWriter = new BigEndianWriter();
-            using var indexUIWriter = new BigEndianWriter();
-            using var indexSortedWriter = new BigEndianWriter();
-
-            contentWriter.Position = 4;
-
-            foreach (var entry in entries.Where(x => x.Value.Text != null))
-            {
-                indexWriter.Write(entry.Key);
-                indexWriter.Write(entry.Value.UseUndiactricalText);
-                indexWriter.Write(contentWriter.Position);
-
-                contentWriter.Write(entry.Value.Text);
-
-                if (entry.Value.UseUndiactricalText)
-                {
-                    indexWriter.Write(contentWriter.Position);
-                    contentWriter.Write(entry.Value.UnDiactricialText);
-                }
-            }
-
-            int indexLen = indexWriter.Data.Length;
-
-            foreach (var uiEntry in uiEntries.Where(x => x.Value.Text != null))
-            {
-                indexUIWriter.Write(uiEntry.Key);
-                indexUIWriter.Write(contentWriter.Position);
-                contentWriter.Write(uiEntry.Value.Text);
-            }
-
-            foreach (var sorted in m_sortedIndex)
-                indexSortedWriter.Write(sorted);
-
-            int indexUIPos = contentWriter.Position;
-            Memory<byte> uiData = indexWriter.Data;
-
-            contentWriter.Write(indexLen);
-            contentWriter.Write(uiData);
-            contentWriter.Write(indexUIWriter.Data.Length);
-            contentWriter.Write(indexUIWriter.Data);
-            contentWriter.Write(indexSortedWriter.Data.Length);
-            contentWriter.Write(indexSortedWriter.Data);
-
-            contentWriter.Position = 0;
-            contentWriter.Write(indexUIPos);
-
-            return contentWriter.Data;
-        }
     }
 }

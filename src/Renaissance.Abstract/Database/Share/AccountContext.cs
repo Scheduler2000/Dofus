@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Renaissance.Database;
 
 namespace Renaissance.Abstract.Database.Share

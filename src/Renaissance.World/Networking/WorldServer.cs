@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Renaissance.Abstract;
 using Renaissance.Abstract.Network;
 using Renaissance.Abstract.Network.Distribution;
@@ -41,7 +43,6 @@ namespace Renaissance.World.Networking
                              .InitProtocolRequired(1945, 1945));
 
             await worldClient.Connection.Send(new HelloGameMessage());
-
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Renaissance.Abstract;
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Frame.Brain;

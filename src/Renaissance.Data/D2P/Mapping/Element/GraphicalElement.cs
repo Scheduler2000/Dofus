@@ -1,6 +1,8 @@
 ﻿using System;
+
 using Renaissance.Binary;
 using Renaissance.Data.D2P.Mapping.Util;
+using Renaissance.Protocol.datacenter.geometry;
 
 namespace Renaissance.Data.D2P.Mapping.Element
 {
@@ -28,7 +30,7 @@ namespace Renaissance.Data.D2P.Mapping.Element
         public uint Identifier { get; private set; }
 
 
-        public GraphicalElement(Cell cell)
+        public GraphicalElement(CellElement cell)
             : base(cell, ElementTypesEnum.Graphical)
         {
             this.Offset = new Point();

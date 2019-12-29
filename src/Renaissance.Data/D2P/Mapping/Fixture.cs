@@ -1,6 +1,7 @@
 ﻿using System;
+
 using Renaissance.Binary;
-using Renaissance.Data.D2P.Mapping.Util;
+using Renaissance.Protocol.datacenter.geometry;
 
 namespace Renaissance.Data.D2P.Mapping
 {

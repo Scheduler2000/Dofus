@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Frame;
 using Renaissance.Binary.Definition;
@@ -43,6 +45,8 @@ namespace Renaissance.World.Frame
 
                 client.Connection.Send(new TrustStatusMessage()
                       .InitTrustStatusMessage(new WrappedBool(true), new WrappedBool(true)));
+
+                client.Account.IsConnected = true;
             }
         }
 

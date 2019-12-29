@@ -2,3 +2,9 @@
 
 # IDE0060: Supprimer le paramètre inutilisé
 dotnet_code_quality_unused_parameters = all:none
+
+# CS0108: Un membre masque un membre hérité ; le mot clé new est manquant
+dotnet_diagnostic.CS0108.severity = none
+
+# IDE0044: Ajouter un modificateur readonly
+dotnet_style_readonly_field = true:none

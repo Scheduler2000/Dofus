@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Renaissance.Database.Pattern

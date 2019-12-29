@@ -1,5 +1,7 @@
 ﻿using System;
+
 using Astron.Binary.Writer;
+
 using Renaissance.Binary.Definition;
 
 namespace Renaissance.Binary

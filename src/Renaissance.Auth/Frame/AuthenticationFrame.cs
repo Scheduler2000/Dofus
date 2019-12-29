@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Frame;
 using Renaissance.Auth.IoC;

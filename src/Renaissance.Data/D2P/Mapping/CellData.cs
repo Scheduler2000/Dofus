@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Renaissance.Binary;
 
 namespace Renaissance.Data.D2P.Mapping
@@ -8,9 +9,8 @@ namespace Renaissance.Data.D2P.Mapping
     /// </summary>
     public class CellData
     {
-        private readonly Map m_map;
+        private readonly MapData m_map;
 
-        private int m_losmov = 3;
         private int m_arrow;
 
         private byte m_linkedZone;
@@ -22,6 +22,9 @@ namespace Renaissance.Data.D2P.Mapping
         public bool Los { get; private set; }
 
         public bool Mov { get; private set; }
+
+        public int LosMov { get; private set; }
+
 
         public bool NonWalkableDuringFight { get; private set; }
 
@@ -64,7 +67,7 @@ namespace Renaissance.Data.D2P.Mapping
         public bool Walkable => this.Mov;
 
 
-        public CellData(Map param1, uint param2)
+        public CellData(MapData param1, uint param2)
         {
             this.Id = param2;
             this.m_map = param1;
@@ -72,7 +75,7 @@ namespace Renaissance.Data.D2P.Mapping
 
 
         public bool IsWalkable(bool isFightMode)
-        { return (this.m_losmov & (isFightMode ? 5 : 1)) == 1; }
+        { return (this.LosMov & (isFightMode ? 5 : 1)) == 1; }
 
         public void FromRaw(DofusReader reader)
         {
@@ -124,15 +127,15 @@ namespace Renaissance.Data.D2P.Mapping
                 }
                 else
                 {
-                    this.m_losmov = reader.Read<byte>();
-                    this.Los = (this.m_losmov & 2) >> 1 == 1;
-                    this.Mov = (this.m_losmov & 1) == 1;
-                    this.Visible = (this.m_losmov & 64) >> 6 == 1;
-                    this.FarmCell = (this.m_losmov & 32) >> 5 == 1;
-                    this.Blue = (this.m_losmov & 16) >> 4 == 1;
-                    this.Red = (this.m_losmov & 8) >> 3 == 1;
-                    this.NonWalkableDuringRp = (this.m_losmov & 128) >> 7 == 1;
-                    this.NonWalkableDuringFight = (this.m_losmov & 4) >> 2 == 1;
+                    this.LosMov = reader.Read<byte>();
+                    this.Los = (this.LosMov & 2) >> 1 == 1;
+                    this.Mov = (this.LosMov & 1) == 1;
+                    this.Visible = (this.LosMov & 64) >> 6 == 1;
+                    this.FarmCell = (this.LosMov & 32) >> 5 == 1;
+                    this.Blue = (this.LosMov & 16) >> 4 == 1;
+                    this.Red = (this.LosMov & 8) >> 3 == 1;
+                    this.NonWalkableDuringRp = (this.LosMov & 128) >> 7 == 1;
+                    this.NonWalkableDuringFight = (this.LosMov & 4) >> 2 == 1;
                 }
                 this.Speed = (int)reader.Read<byte>();
                 this.MapChangeData = reader.Read<byte>();

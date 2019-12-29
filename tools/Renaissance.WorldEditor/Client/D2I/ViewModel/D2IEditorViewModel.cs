@@ -6,10 +6,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+
 using Microsoft.Win32;
+
+using Renaissance.Data.D2I;
+using Renaissance.Data.Utils;
 using Renaissance.WorldEditor.Client.D2I.Grid;
 using Renaissance.WorldEditor.Command;
-using Renaissance.WorldEditor.Utils;
 
 namespace Renaissance.WorldEditor.Client.D2I.ViewModel
 {

@@ -1,7 +1,9 @@
 ﻿using System;
+
 using Astron.Binary.Reader;
 using Astron.Binary.Storage;
 using Astron.Binary.Writer;
+
 using Renaissance.Binary.Definition;
 
 #pragma warning disable CS0675 // Opérateur OU au niveau du bit utilisé sur un opérande de signe étendu
