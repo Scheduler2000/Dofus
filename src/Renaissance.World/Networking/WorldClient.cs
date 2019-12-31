@@ -2,6 +2,8 @@
 
 using Renaissance.Abstract.Database.Share;
 using Renaissance.Abstract.Network.Interface;
+using Renaissance.World.Database.Characters;
+using Renaissance.World.Game.Actors.Characters;
 using Renaissance.World.IoC;
 
 namespace Renaissance.World.Networking
@@ -11,6 +13,8 @@ namespace Renaissance.World.Networking
         public INetworkConnection Connection { get; }
 
         public Account Account { get; set; }
+
+        public Character Character { get; set; }
 
 
         public WorldClient(INetworkConnection authConnection)

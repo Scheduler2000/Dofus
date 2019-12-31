@@ -9,20 +9,20 @@ using Renaissance.World.Database.Jobs.Recipes;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class JobRecipeSynchroniser : AbstractSynchroniser<JobRecipe, RecipeData>
+    public class JobRecipeSynchroniser : AbstractSynchroniser<JobRecipeRecord, RecipeData>
     {
         private readonly D2IManager m_d2i;
         private int m_counter = 1;
 
 
-        public JobRecipeSynchroniser(D2IManager d2i, IEnumerable<RecipeData> datas, IRepository<JobRecipe> database)
+        public JobRecipeSynchroniser(D2IManager d2i, IEnumerable<RecipeData> datas, IRepository<JobRecipeRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
 
-        protected override JobRecipe BuildEntity(RecipeData data)
+        protected override JobRecipeRecord BuildEntity(RecipeData data)
         {
-            var result = new JobRecipe()
+            var result = new JobRecipeRecord()
             {
                 Id = m_counter,
                 ResultId = data.ResultId,

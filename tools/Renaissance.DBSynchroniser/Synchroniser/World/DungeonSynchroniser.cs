@@ -8,16 +8,16 @@ using Renaissance.World.Database.Dungeons;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class DungeonSynchroniser : AbstractSynchroniser<Dungeon, DungeonData>
+    public class DungeonSynchroniser : AbstractSynchroniser<DungeonRecord, DungeonData>
     {
         private readonly D2IManager m_d2i;
 
-        public DungeonSynchroniser(D2IManager d2i, IEnumerable<DungeonData> datas, IRepository<Dungeon> database)
+        public DungeonSynchroniser(D2IManager d2i, IEnumerable<DungeonData> datas, IRepository<DungeonRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override Dungeon BuildEntity(DungeonData data)
+        protected override DungeonRecord BuildEntity(DungeonData data)
         {
-            return new Dungeon()
+            return new DungeonRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

@@ -22,10 +22,10 @@ namespace Renaissance.Abstract.Frame.Brain
         public void Execute<TMessage>(IDofusClient client, TMessage message) where TMessage : IDofusMessage
         {
             if (!m_frames.TryGetValue(message.ProtocolId, out var method))
-                Logger.Instance.Log(LogLevel.Warn, "NETWORK-FRAME", $"Message id {message.ProtocolId} exists but isn't listed on frames.");
+                Logger.Instance.Log(LogLevel.Warn, "NETWORK-FRAME", $"Message <{message.GetType().Name}> exists but isn't listed on frames.(id : {message.ProtocolId})");
             else
             {
-                Logger.Instance.Log(LogLevel.Info, "NETWORK-FRAME", $"Message Id {message.ProtocolId} has been parsed and treated.");
+                Logger.Instance.Log(LogLevel.Info, "NETWORK-FRAME", $"Message <{message.GetType().Name}> has been parsed and treated.");
                 m_threading.ExecuteInContext(() => method(client as TClient, message));
             }
         }

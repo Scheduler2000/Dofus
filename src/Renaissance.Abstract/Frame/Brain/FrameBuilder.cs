@@ -17,9 +17,8 @@ namespace Renaissance.Abstract.Frame.Brain
         { this.m_frames = ImmutableDictionary.CreateBuilder<int, Action<TClient, IDofusMessage>>(); }
 
 
-        public FrameBuilder<TClient> RegisterFrame<TFrame>() where TFrame : IFrame, new()
+        public FrameBuilder<TClient> RegisterFrame<TFrame>(TFrame frame) where TFrame : IFrame
         {
-            IFrame frame = new TFrame();
             Action<TClient, IDofusMessage> del;
             MessageHandlerAttribute attribute;
             IEnumerable<MethodInfo> methods = frame.GetType()

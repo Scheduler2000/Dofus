@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Mounts
 {
-    public class MountRepository : Repository<MountContext, Mount>
+    public class MountRepository : Repository<MountContext, MountRecord>
     { }
 }

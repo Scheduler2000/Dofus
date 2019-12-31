@@ -8,7 +8,7 @@ using Renaissance.Protocol.enums.custom;
 namespace Renaissance.Abstract.Database.Share
 {
     [Table("Accounts")]
-    public class Account : IEntity
+    public class Account : IRecord
     {
         [Key]
         public int Id { get; set; }

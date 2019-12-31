@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Effects
 {
-    public class EffectContext : DofusContext<Effect>
+    public class EffectContext : DofusContext<EffectRecord>
     {
-        public override DbSet<Effect> Table { get; set; }
+        public override DbSet<EffectRecord> Table { get; set; }
 
         public EffectContext()
         {
-            this.Table = base.Set<Effect>();
+            this.Table = base.Set<EffectRecord>();
             Verify("Effects");
         }
     }

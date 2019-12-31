@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Titles
 {
-    public class TitleRepository : Repository<TitleContext, Title>
+    public class TitleRepository : Repository<TitleContext, TitleRecord>
     { }
 }

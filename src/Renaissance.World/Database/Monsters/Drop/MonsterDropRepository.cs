@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Monsters.Drop
 {
-    public class MonsterDropRepository : Repository<MonsterDropContext, MonsterDrop>
+    public class MonsterDropRepository : Repository<MonsterDropContext, MonsterDropRecord>
     { }
 }

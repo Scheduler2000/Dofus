@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Renaissance.Abstract\Renaissance.Abstract.csproj" />
-    <ProjectReference Include="..\Renaissance.Data\Renaissance.Data.csproj" />
   </ItemGroup>
 
 </Project>

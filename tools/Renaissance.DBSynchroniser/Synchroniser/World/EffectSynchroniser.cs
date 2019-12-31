@@ -8,16 +8,16 @@ using Renaissance.World.Database.Effects;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class EffectSynchroniser : AbstractSynchroniser<Effect, EffectData>
+    public class EffectSynchroniser : AbstractSynchroniser<EffectRecord, EffectData>
     {
         private readonly D2IManager m_d2i;
 
-        public EffectSynchroniser(D2IManager d2i, IEnumerable<EffectData> datas, IRepository<Effect> database)
+        public EffectSynchroniser(D2IManager d2i, IEnumerable<EffectData> datas, IRepository<EffectRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override Effect BuildEntity(EffectData data)
+        protected override EffectRecord BuildEntity(EffectData data)
         {
-            return new Effect()
+            return new EffectRecord()
             {
                 Id = data.Id,
                 Description = m_d2i.DataAccess.GetText((int)data.DescriptionId),

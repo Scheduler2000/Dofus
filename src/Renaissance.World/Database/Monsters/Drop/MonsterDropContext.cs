@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Monsters.Drop
 {
-    public class MonsterDropContext : DofusContext<MonsterDrop>
+    public class MonsterDropContext : DofusContext<MonsterDropRecord>
     {
-        public override DbSet<MonsterDrop> Table { get; set; }
+        public override DbSet<MonsterDropRecord> Table { get; set; }
 
         public MonsterDropContext()
         {
-            this.Table = base.Set<MonsterDrop>();
+            this.Table = base.Set<MonsterDropRecord>();
             Verify("MonstersDrops");
         }
     }

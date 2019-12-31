@@ -8,18 +8,18 @@ using Renaissance.World.Database.Mounts;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class MountSynchroniser : AbstractSynchroniser<Mount, MountData>
+    public class MountSynchroniser : AbstractSynchroniser<MountRecord, MountData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public MountSynchroniser(D2IManager d2i, IEnumerable<MountData> datas, IRepository<Mount> database)
+        public MountSynchroniser(D2IManager d2i, IEnumerable<MountData> datas, IRepository<MountRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
-        protected override Mount BuildEntity(MountData data)
+        protected override MountRecord BuildEntity(MountData data)
         {
-            return new Mount()
+            return new MountRecord()
             {
                 Id = (int)data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

@@ -8,18 +8,18 @@ using Renaissance.World.Database.Emoticons;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class EmoticonSynchroniser : AbstractSynchroniser<Emoticon, EmoticonData>
+    public class EmoticonSynchroniser : AbstractSynchroniser<EmoticonRecord, EmoticonData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public EmoticonSynchroniser(D2IManager d2i, IEnumerable<EmoticonData> datas, IRepository<Emoticon> database)
+        public EmoticonSynchroniser(D2IManager d2i, IEnumerable<EmoticonData> datas, IRepository<EmoticonRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
-        protected override Emoticon BuildEntity(EmoticonData data)
+        protected override EmoticonRecord BuildEntity(EmoticonData data)
         {
-            return new Emoticon()
+            return new EmoticonRecord()
             {
                 Id = (int)data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

@@ -31,7 +31,7 @@ namespace Renaissance.Auth.IoC
                                .Build();
 
             var frames = new FrameBuilder<AuthClient>()
-                                   .RegisterFrame<AuthenticationFrame>()
+                                   .RegisterFrame(new AuthenticationFrame())
                                    .Build();
 
             var frameManager = new FrameManager<AuthClient>(frames, asyncPool);

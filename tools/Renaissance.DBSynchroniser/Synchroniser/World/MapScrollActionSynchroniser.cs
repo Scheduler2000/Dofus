@@ -7,14 +7,14 @@ using Renaissance.World.Database.Maps.Scrolls;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class MapScrollActionSynchroniser : AbstractSynchroniser<MapScrollAction, MapScrollActionData>
+    public class MapScrollActionSynchroniser : AbstractSynchroniser<MapScrollActionRecord, MapScrollActionData>
     {
-        public MapScrollActionSynchroniser(IEnumerable<MapScrollActionData> datas, IRepository<MapScrollAction> database)
+        public MapScrollActionSynchroniser(IEnumerable<MapScrollActionData> datas, IRepository<MapScrollActionRecord> database)
             : base(datas, database) { }
 
-        protected override MapScrollAction BuildEntity(MapScrollActionData data)
+        protected override MapScrollActionRecord BuildEntity(MapScrollActionData data)
         {
-            return new MapScrollAction()
+            return new MapScrollActionRecord()
             {
                 Id = (int)data.Id,
                 RightMapId = data.RightMapId,

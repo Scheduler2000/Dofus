@@ -7,16 +7,16 @@ using Renaissance.World.Database.Maps.Positions;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class MapPositionSynchroniser : AbstractSynchroniser<MapPosition, MapPositionData>
+    public class MapPositionSynchroniser : AbstractSynchroniser<MapPositionRecord, MapPositionData>
     {
-        public MapPositionSynchroniser(IEnumerable<MapPositionData> datas, IRepository<MapPosition> database)
+        public MapPositionSynchroniser(IEnumerable<MapPositionData> datas, IRepository<MapPositionRecord> database)
             : base(datas, database) { }
 
 
 
-        protected override MapPosition BuildEntity(MapPositionData data)
+        protected override MapPositionRecord BuildEntity(MapPositionData data)
         {
-            return new MapPosition()
+            return new MapPositionRecord()
             {
                 Id = data.Id,
                 NameId = data.NameId,

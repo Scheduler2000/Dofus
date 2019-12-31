@@ -9,17 +9,17 @@ using Renaissance.World.Database.Npcs;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class NpcSynchroniser : AbstractSynchroniser<Npc, NpcData>
+    public class NpcSynchroniser : AbstractSynchroniser<NpcRecord, NpcData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public NpcSynchroniser(D2IManager d2i, IEnumerable<NpcData> datas, IRepository<Npc> database)
+        public NpcSynchroniser(D2IManager d2i, IEnumerable<NpcData> datas, IRepository<NpcRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override Npc BuildEntity(NpcData data)
+        protected override NpcRecord BuildEntity(NpcData data)
         {
-            return new Npc()
+            return new NpcRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

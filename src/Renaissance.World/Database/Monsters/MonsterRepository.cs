@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Monsters
 {
-    public class MonsterRepository : Repository<MonsterContext, Monster>
+    public class MonsterRepository : Repository<MonsterContext, MonsterRecord>
     { }
 }

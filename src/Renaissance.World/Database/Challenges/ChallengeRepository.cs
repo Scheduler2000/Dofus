@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Challenges
 {
-    public class ChallengeRepository : Repository<ChallengeContext, Challenge>
+    public class ChallengeRepository : Repository<ChallengeContext, ChallengeRecord>
     { }
 }

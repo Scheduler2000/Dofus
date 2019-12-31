@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Ornaments
 {
-    public class OrnamentContext : DofusContext<Ornament>
+    public class OrnamentContext : DofusContext<OrnamentRecord>
     {
-        public override DbSet<Ornament> Table { get; set; }
+        public override DbSet<OrnamentRecord> Table { get; set; }
 
         public OrnamentContext()
         {
-            this.Table = base.Set<Ornament>();
+            this.Table = base.Set<OrnamentRecord>();
             Verify("Ornaments");
         }
     }

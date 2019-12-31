@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Dungeons
 {
-    public class DungeonContext : DofusContext<Dungeon>
+    public class DungeonContext : DofusContext<DungeonRecord>
     {
-        public override DbSet<Dungeon> Table { get; set; }
+        public override DbSet<DungeonRecord> Table { get; set; }
 
         public DungeonContext()
         {
-            this.Table = base.Set<Dungeon>();
+            this.Table = base.Set<DungeonRecord>();
             Verify("Dungeons");
         }
     }

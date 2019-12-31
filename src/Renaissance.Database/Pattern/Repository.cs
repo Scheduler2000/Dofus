@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Renaissance.Database.Pattern
 {
     public class Repository<TContext, TEntity> :
-    IRepository<TEntity>, IDisposable where TEntity : class, IEntity where TContext : DofusContext<TEntity>, new()
+    IRepository<TEntity>, IDisposable where TEntity : class, IRecord where TContext : DofusContext<TEntity>, new()
 
     {
         private readonly TContext m_context;

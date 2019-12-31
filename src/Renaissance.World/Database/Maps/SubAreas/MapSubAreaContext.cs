@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Maps.SubAreas
 {
-    public class MapSubAreaContext : DofusContext<MapSubArea>
+    public class MapSubAreaContext : DofusContext<MapSubAreaRecord>
     {
-        public override DbSet<MapSubArea> Table { get; set; }
+        public override DbSet<MapSubAreaRecord> Table { get; set; }
 
         public MapSubAreaContext()
         {
-            this.Table = base.Set<MapSubArea>();
+            this.Table = base.Set<MapSubAreaRecord>();
             Verify("MapsSubAreas");
         }
     }

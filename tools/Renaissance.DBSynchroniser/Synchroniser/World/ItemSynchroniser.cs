@@ -9,16 +9,16 @@ using Renaissance.World.Database.Items;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class ItemSynchroniser : AbstractSynchroniser<Item, ItemData>
+    public class ItemSynchroniser : AbstractSynchroniser<ItemRecord, ItemData>
     {
         private readonly D2IManager m_d2i;
 
-        public ItemSynchroniser(D2IManager d2i, IEnumerable<ItemData> datas, IRepository<Item> database)
+        public ItemSynchroniser(D2IManager d2i, IEnumerable<ItemData> datas, IRepository<ItemRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override Item BuildEntity(ItemData data)
+        protected override ItemRecord BuildEntity(ItemData data)
         {
-            return new Item()
+            return new ItemRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

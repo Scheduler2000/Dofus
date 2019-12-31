@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Emoticons
 {
-    public class EmoticonRepository : Repository<EmoticonContext, Emoticon>
+    public class EmoticonRepository : Repository<EmoticonContext, EmoticonRecord>
     { }
 }

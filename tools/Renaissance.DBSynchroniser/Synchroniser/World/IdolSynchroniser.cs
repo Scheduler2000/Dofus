@@ -7,16 +7,16 @@ using Renaissance.World.Database.Idols;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class IdolSynchroniser : AbstractSynchroniser<Idol, IdolData>
+    public class IdolSynchroniser : AbstractSynchroniser<IdolRecord, IdolData>
     {
 
-        public IdolSynchroniser(IEnumerable<IdolData> datas, IRepository<Idol> database)
+        public IdolSynchroniser(IEnumerable<IdolData> datas, IRepository<IdolRecord> database)
             : base(datas, database) { }
 
 
-        protected override Idol BuildEntity(IdolData data)
+        protected override IdolRecord BuildEntity(IdolData data)
         {
-            return new Idol()
+            return new IdolRecord()
             {
                 Id = data.Id,
                 Description = data.Description,

@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Achievements.Objectives
 {
-    public class AchievementObjectiveContext : DofusContext<AchievementObjective>
+    public class AchievementObjectiveContext : DofusContext<AchievementObjectiveRecord>
     {
-        public override DbSet<AchievementObjective> Table { get; set; }
+        public override DbSet<AchievementObjectiveRecord> Table { get; set; }
 
         public AchievementObjectiveContext()
         {
-            this.Table = base.Set<AchievementObjective>();
+            this.Table = base.Set<AchievementObjectiveRecord>();
             Verify("AchievementsObjectives");
         }
     }

@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Items.Weapons
 {
-    public class WeaponRepository : Repository<WeaponContext, Weapon>
+    public class WeaponRepository : Repository<WeaponContext, WeaponRecord>
     { }
 }

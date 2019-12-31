@@ -8,14 +8,14 @@ using Renaissance.World.Database.Maps.SubAreas;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class MapSubAreaSynchroniser : AbstractSynchroniser<MapSubArea, SubAreaData>
+    public class MapSubAreaSynchroniser : AbstractSynchroniser<MapSubAreaRecord, SubAreaData>
     {
-        public MapSubAreaSynchroniser(IEnumerable<SubAreaData> datas, IRepository<MapSubArea> database)
+        public MapSubAreaSynchroniser(IEnumerable<SubAreaData> datas, IRepository<MapSubAreaRecord> database)
             : base(datas, database) { }
 
-        protected override MapSubArea BuildEntity(SubAreaData data)
+        protected override MapSubAreaRecord BuildEntity(SubAreaData data)
         {
-            return new MapSubArea()
+            return new MapSubAreaRecord()
             {
                 Id = data.Id,
                 NameId = (int)data.NameId,

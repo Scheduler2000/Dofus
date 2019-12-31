@@ -9,18 +9,18 @@ using Renaissance.World.Database.Items.Weapons;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class ItemWeaponSynchroniser : AbstractSynchroniser<Weapon, WeaponData>
+    public class ItemWeaponSynchroniser : AbstractSynchroniser<WeaponRecord, WeaponData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public ItemWeaponSynchroniser(D2IManager d2i, IEnumerable<WeaponData> datas, IRepository<Weapon> database)
+        public ItemWeaponSynchroniser(D2IManager d2i, IEnumerable<WeaponData> datas, IRepository<WeaponRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
-        protected override Weapon BuildEntity(WeaponData data)
+        protected override WeaponRecord BuildEntity(WeaponData data)
         {
-            return new Weapon()
+            return new WeaponRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

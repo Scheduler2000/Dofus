@@ -7,7 +7,7 @@ using Renaissance.Database.Pattern;
 
 namespace Renaissance.Database
 {
-    public abstract class DofusContext<TEntity> : DbContext where TEntity : class, IEntity
+    public abstract class DofusContext<TEntity> : DbContext where TEntity : class, IRecord
     {
         public abstract DbSet<TEntity> Table { get; set; }
 

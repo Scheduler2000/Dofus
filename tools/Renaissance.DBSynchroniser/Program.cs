@@ -39,9 +39,10 @@ namespace Renaissance.DBSynchroniser
                                   .Register("MapScrollActions")
                                   .Register("SubAreas")
                                   .Register("MapPositions")
-                                  .Register(Directory.GetFiles($@"{baseClientPath}\content\maps", "*.d2p"))
+                               //   .Register(Directory.GetFiles($@"{baseClientPath}\content\maps", "*.d2p"))
                                   .Register("Recipes")
                                   .Register("Npcs")
+                                  .Register("Heads")
                                   .Register("Breeds")
                                   .Build();
 

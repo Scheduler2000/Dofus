@@ -8,18 +8,18 @@ using Renaissance.World.Database.Achievements.Objectives;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class AchievementObjectiveSynchroniser : AbstractSynchroniser<AchievementObjective, AchievementObjectiveData>
+    public class AchievementObjectiveSynchroniser : AbstractSynchroniser<AchievementObjectiveRecord, AchievementObjectiveData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public AchievementObjectiveSynchroniser(D2IManager d2i, IEnumerable<AchievementObjectiveData> datas, IRepository<AchievementObjective> database)
+        public AchievementObjectiveSynchroniser(D2IManager d2i, IEnumerable<AchievementObjectiveData> datas, IRepository<AchievementObjectiveRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
-        protected override AchievementObjective BuildEntity(AchievementObjectiveData data)
+        protected override AchievementObjectiveRecord BuildEntity(AchievementObjectiveData data)
         {
-            return new AchievementObjective()
+            return new AchievementObjectiveRecord()
             {
                 Id = (int)data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

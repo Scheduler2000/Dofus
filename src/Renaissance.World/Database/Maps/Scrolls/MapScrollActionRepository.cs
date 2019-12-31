@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Maps.Scrolls
 {
-    public class MapScrollActionRepository : Repository<MapScrollActionContext, MapScrollAction>
+    public class MapScrollActionRepository : Repository<MapScrollActionContext, MapScrollActionRecord>
     { }
 }

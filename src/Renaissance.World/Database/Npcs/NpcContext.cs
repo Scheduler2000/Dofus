@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Npcs
 {
-    public class NpcContext : DofusContext<Npc>
+    public class NpcContext : DofusContext<NpcRecord>
     {
-        public override DbSet<Npc> Table { get; set; }
+        public override DbSet<NpcRecord> Table { get; set; }
 
         public NpcContext()
         {
-            this.Table = base.Set<Npc>();
+            this.Table = base.Set<NpcRecord>();
             Verify("Npcs");
         }
     }

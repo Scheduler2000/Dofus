@@ -12,16 +12,16 @@ using Renaissance.World.Database.Monsters.Grade;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class MonsterSynchroniser : AbstractSynchroniser<Monster, MonsterData>
+    public class MonsterSynchroniser : AbstractSynchroniser<MonsterRecord, MonsterData>
     {
         private readonly D2IManager m_d2i;
 
-        public MonsterSynchroniser(D2IManager d2i, IEnumerable<MonsterData> datas, IRepository<Monster> database)
+        public MonsterSynchroniser(D2IManager d2i, IEnumerable<MonsterData> datas, IRepository<MonsterRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override Monster BuildEntity(MonsterData data)
+        protected override MonsterRecord BuildEntity(MonsterData data)
         {
-            return new Monster()
+            return new MonsterRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),
@@ -56,7 +56,7 @@ namespace Renaissance.DBSynchroniser.Synchroniser.World
                 AggressiveAttackDelay = data.AggressiveAttackDelay,
 
                 Drops = data.Drops.Select(x =>
-                    new MonsterDrop()
+                    new MonsterDropRecord()
                     {
                         MonsterId = x.MonsterId,
                         DropId = (int)x.DropId,
@@ -70,7 +70,7 @@ namespace Renaissance.DBSynchroniser.Synchroniser.World
                         Criteria = x.Criteria,
                         HasCriteria = x.HasCriteria,
                         SpecificDropCoefficient = x.SpecificDropCoefficient.Select(y =>
-                        new MonsterDropCoefficient()
+                        new MonsterDropCoefficientRecord()
                         {
                             MonsterId = (int)y.MonsterId,
                             MonsterGrade = (int)y.MonsterGrade,
@@ -81,7 +81,7 @@ namespace Renaissance.DBSynchroniser.Synchroniser.World
                     }).ToList(),
 
                 Grades = data.Grades.Select(x =>
-                        new MonsterGrade()
+                        new MonsterGradeRecord()
                         {
                             MonsterId = x.MonsterId,
                             Grade = (int)x.Grade,

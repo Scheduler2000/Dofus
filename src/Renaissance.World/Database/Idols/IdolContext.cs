@@ -4,14 +4,14 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Idols
 {
-    public class IdolContext : DofusContext<Idol>
+    public class IdolContext : DofusContext<IdolRecord>
     {
-        public override DbSet<Idol> Table { get; set; }
+        public override DbSet<IdolRecord> Table { get; set; }
 
 
         public IdolContext()
         {
-            this.Table = base.Set<Idol>();
+            this.Table = base.Set<IdolRecord>();
             Verify("Idols");
         }
     }

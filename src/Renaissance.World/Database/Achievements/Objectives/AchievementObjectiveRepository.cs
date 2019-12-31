@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Achievements.Objectives
 {
-    public class AchievementObjectiveRepository : Repository<AchievementObjectiveContext, AchievementObjective>
+    public class AchievementObjectiveRepository : Repository<AchievementObjectiveContext, AchievementObjectiveRecord>
     { }
 }

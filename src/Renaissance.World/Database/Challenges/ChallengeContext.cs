@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Challenges
 {
-    public class ChallengeContext : DofusContext<Challenge>
+    public class ChallengeContext : DofusContext<ChallengeRecord>
     {
-        public override DbSet<Challenge> Table { get; set; }
+        public override DbSet<ChallengeRecord> Table { get; set; }
 
         public ChallengeContext()
         {
-            this.Table = base.Set<Challenge>();
+            this.Table = base.Set<ChallengeRecord>();
             Verify("Challenges");
         }
     }

@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Maps.Scrolls
 {
-    public class MapScrollActionContext : DofusContext<MapScrollAction>
+    public class MapScrollActionContext : DofusContext<MapScrollActionRecord>
     {
-        public override DbSet<MapScrollAction> Table { get; set; }
+        public override DbSet<MapScrollActionRecord> Table { get; set; }
 
         public MapScrollActionContext()
         {
-            this.Table = base.Set<MapScrollAction>();
+            this.Table = base.Set<MapScrollActionRecord>();
             Verify("MapsScrollsActions");
         }
     }

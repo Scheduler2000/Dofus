@@ -8,16 +8,16 @@ using Renaissance.World.Database.Jobs.Skills;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class JobSkillSynchroniser : AbstractSynchroniser<JobSkill, SkillData>
+    public class JobSkillSynchroniser : AbstractSynchroniser<JobSkillRecord, SkillData>
     {
         private readonly D2IManager m_d2i;
 
-        public JobSkillSynchroniser(D2IManager d2i, IEnumerable<SkillData> datas, IRepository<JobSkill> database)
+        public JobSkillSynchroniser(D2IManager d2i, IEnumerable<SkillData> datas, IRepository<JobSkillRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override JobSkill BuildEntity(SkillData data)
+        protected override JobSkillRecord BuildEntity(SkillData data)
         {
-            return new JobSkill()
+            return new JobSkillRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

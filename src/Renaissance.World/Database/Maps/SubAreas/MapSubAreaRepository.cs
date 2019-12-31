@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Maps.SubAreas
 {
-    public class MapSubAreaRepository : Repository<MapSubAreaContext, MapSubArea>
+    public class MapSubAreaRepository : Repository<MapSubAreaContext, MapSubAreaRecord>
     { }
 }

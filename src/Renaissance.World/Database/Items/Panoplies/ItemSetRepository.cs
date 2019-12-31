@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Items.Panoplies
 {
-    public class ItemSetRepository : Repository<ItemSetContext, ItemSet>
+    public class ItemSetRepository : Repository<ItemSetContext, ItemSetRecord>
     { }
 }

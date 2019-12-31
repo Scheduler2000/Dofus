@@ -9,17 +9,17 @@ using Renaissance.World.Database.Items.Panoplies;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class ItemSetSynchroniser : AbstractSynchroniser<ItemSet, ItemSetData>
+    public class ItemSetSynchroniser : AbstractSynchroniser<ItemSetRecord, ItemSetData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public ItemSetSynchroniser(D2IManager d2i, IEnumerable<ItemSetData> datas, IRepository<ItemSet> database)
+        public ItemSetSynchroniser(D2IManager d2i, IEnumerable<ItemSetData> datas, IRepository<ItemSetRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
-        protected override ItemSet BuildEntity(ItemSetData data)
+        protected override ItemSetRecord BuildEntity(ItemSetData data)
         {
-            return new ItemSet()
+            return new ItemSetRecord()
             {
                 Id = (int)data.Id,
                 Items = data.Items.Select(x => (int)x).ToList(),

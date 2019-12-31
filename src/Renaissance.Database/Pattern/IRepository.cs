@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Renaissance.Database.Pattern
 {
-    public interface IRepository<TEntity> where TEntity : IEntity
+    public interface IRepository<TEntity> where TEntity : IRecord
     {
         List<TEntity> Entities { get; }
 

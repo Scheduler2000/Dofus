@@ -9,7 +9,7 @@ using Renaissance.Protocol.datacenter;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.Pattern
 {
-    public abstract class AbstractSynchroniser<TEntity, TData> : ISynchroniser where TEntity : IEntity where TData : IDataCenter
+    public abstract class AbstractSynchroniser<TEntity, TData> : ISynchroniser where TEntity : IRecord where TData : IDataCenter
     {
         private readonly IEnumerable<TData> m_datas;
         private readonly IRepository<TEntity> m_database;

@@ -10,12 +10,12 @@ using Renaissance.World.Database.Maps.Cells;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class MapSynchroniser : AbstractSynchroniser<Map, MapData>
+    public class MapSynchroniser : AbstractSynchroniser<MapRecord, MapData>
     {
-        public MapSynchroniser(IEnumerable<MapData> datas, IRepository<Map> database)
+        public MapSynchroniser(IEnumerable<MapData> datas, IRepository<MapRecord> database)
             : base(datas, database) { }
 
-        protected override Map BuildEntity(MapData data)
+        protected override MapRecord BuildEntity(MapData data)
         {
             var cells = new List<Cell>();
 
@@ -41,7 +41,7 @@ namespace Renaissance.DBSynchroniser.Synchroniser.World
                 });
             }
 
-            var map = new Map()
+            var map = new MapRecord()
             {
                 Id = data.Id,
                 SubAreadId = data.SubAreaId,

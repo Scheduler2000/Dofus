@@ -7,108 +7,108 @@
 // </auto-generated>
 //-------------------------------------------------------------------------------
 
-using    System;
-using    Renaissance.Binary;
-using    Renaissance.Binary.Definition;
+using System;
+using Renaissance.Binary;
+using Renaissance.Binary.Definition;
 
 namespace Renaissance.Protocol.types.game.look
 {
-	public class EntityLook : IDofusType
-	{
-		public  const int NetworkId = 55;
-		public  int ProtocolId { get { return NetworkId; } }
+    public class EntityLook : IDofusType
+    {
+        public const int NetworkId = 55;
+        public int ProtocolId { get { return NetworkId; } }
 
-		public CustomVar<short> BonesId { get; set; }
+        public CustomVar<short> BonesId { get; set; }
 
-		public CustomVar<short>[] Skins { get; set; }
+        public CustomVar<short>[] Skins { get; set; }
 
-		public int[] IndexedColors { get; set; }
+        public int[] IndexedColors { get; set; }
 
-		public CustomVar<short>[] Scales { get; set; }
+        public CustomVar<short>[] Scales { get; set; }
 
-		public SubEntity[] Subentities { get; set; }
-
-
-		public EntityLook() { }
+        public SubEntity[] SubEntities { get; set; }
 
 
-		public EntityLook InitEntityLook(CustomVar<short> _bonesid, CustomVar<short>[] _skins, int[] _indexedcolors, CustomVar<short>[] _scales, SubEntity[] _subentities)
-		{
-
-			this.BonesId = _bonesid;
-			this.Skins = _skins;
-			this.IndexedColors = _indexedcolors;
-			this.Scales = _scales;
-			this.Subentities = _subentities;
-
-			return this;
-		}
-
-		public  Memory<byte> Serialize()
-		{
-
-			int size = default;
-
-			size += DofusBinaryFactory.Sizing.SizeOf(BonesId);
-			size += DofusBinaryFactory.Sizing.SizeOf((short)(this.Skins.Length));
-			size += DofusBinaryFactory.Sizing.SizeOf(Skins);
-			size += DofusBinaryFactory.Sizing.SizeOf((short)(this.IndexedColors.Length));
-			size += DofusBinaryFactory.Sizing.SizeOf(IndexedColors);
-			size += DofusBinaryFactory.Sizing.SizeOf((short)(this.Scales.Length));
-			size += DofusBinaryFactory.Sizing.SizeOf(Scales);
-			size += DofusBinaryFactory.Sizing.SizeOf((short)(this.Subentities.Length));
-			var memory1 = new Memory<byte>[Subentities.Length];
-			for(int i = 0; i < Subentities.Length; i++)
-			{
-				memory1[i] = this.Subentities[i].Serialize();
-				size += memory1[i].Length;
-			}
+        public EntityLook() { }
 
 
-			using DofusWriter writer = new DofusWriter(size);
+        public EntityLook InitEntityLook(CustomVar<short> _bonesid, CustomVar<short>[] _skins, int[] _indexedcolors, CustomVar<short>[] _scales, SubEntity[] _subentities)
+        {
 
-			writer.WriteData(this.BonesId);
-			writer.WriteData((short)(this.Skins.Length));
-			writer.WriteDatas(Skins);
-			writer.WriteData((short)(this.IndexedColors.Length));
-			writer.WriteDatas(IndexedColors);
-			writer.WriteData((short)(this.Scales.Length));
-			writer.WriteDatas(Scales);
-			writer.WriteData((short)(this.Subentities.Length));
-			for(int i = 0; i < memory1.Length; i++)
-			{
-				writer.WriteDatas(memory1[i]);
-			}
+            this.BonesId = _bonesid;
+            this.Skins = _skins;
+            this.IndexedColors = _indexedcolors;
+            this.Scales = _scales;
+            this.SubEntities = _subentities;
 
-			return writer.Data;
-		}
+            return this;
+        }
 
-		public  void Deserialize(DofusReader reader)
-		{
+        public Memory<byte> Serialize()
+        {
 
-			this.BonesId = reader.Read<CustomVar<short>>();
-			int Skins_length = reader.Read<short>();
-			this.Skins = new CustomVar<short>[Skins_length];
-			for(int i = 0; i < Skins_length; i++)
-				this.Skins[i] = reader.Read<CustomVar<short>>();
-			int IndexedColors_length = reader.Read<short>();
-			this.IndexedColors = new int[IndexedColors_length];
-			for(int i = 0; i < IndexedColors_length; i++)
-				this.IndexedColors[i] = reader.Read<int>();
-			int Scales_length = reader.Read<short>();
-			this.Scales = new CustomVar<short>[Scales_length];
-			for(int i = 0; i < Scales_length; i++)
-				this.Scales[i] = reader.Read<CustomVar<short>>();
-			int Subentities_length = reader.Read<short>();
-			this.Subentities = new SubEntity[Subentities_length];
-			for(int i = 0; i < Subentities_length; i++)
-			{
-				this.Subentities[i] = new SubEntity();
-				this.Subentities[i].Deserialize(reader);
-			}
+            int size = default;
 
-		}
+            size += DofusBinaryFactory.Sizing.SizeOf(BonesId);
+            size += DofusBinaryFactory.Sizing.SizeOf((short)(this.Skins.Length));
+            size += DofusBinaryFactory.Sizing.SizeOf(Skins);
+            size += DofusBinaryFactory.Sizing.SizeOf((short)(this.IndexedColors.Length));
+            size += DofusBinaryFactory.Sizing.SizeOf(IndexedColors);
+            size += DofusBinaryFactory.Sizing.SizeOf((short)(this.Scales.Length));
+            size += DofusBinaryFactory.Sizing.SizeOf(Scales);
+            size += DofusBinaryFactory.Sizing.SizeOf((short)(this.SubEntities.Length));
+            var memory1 = new Memory<byte>[SubEntities.Length];
+            for (int i = 0; i < SubEntities.Length; i++)
+            {
+                memory1[i] = this.SubEntities[i].Serialize();
+                size += memory1[i].Length;
+            }
 
 
-	}
+            using DofusWriter writer = new DofusWriter(size);
+
+            writer.WriteData(this.BonesId);
+            writer.WriteData((short)(this.Skins.Length));
+            writer.WriteDatas(Skins);
+            writer.WriteData((short)(this.IndexedColors.Length));
+            writer.WriteDatas(IndexedColors);
+            writer.WriteData((short)(this.Scales.Length));
+            writer.WriteDatas(Scales);
+            writer.WriteData((short)(this.SubEntities.Length));
+            for (int i = 0; i < memory1.Length; i++)
+            {
+                writer.WriteDatas(memory1[i]);
+            }
+
+            return writer.Data;
+        }
+
+        public void Deserialize(DofusReader reader)
+        {
+
+            this.BonesId = reader.Read<CustomVar<short>>();
+            int Skins_length = reader.Read<short>();
+            this.Skins = new CustomVar<short>[Skins_length];
+            for (int i = 0; i < Skins_length; i++)
+                this.Skins[i] = reader.Read<CustomVar<short>>();
+            int IndexedColors_length = reader.Read<short>();
+            this.IndexedColors = new int[IndexedColors_length];
+            for (int i = 0; i < IndexedColors_length; i++)
+                this.IndexedColors[i] = reader.Read<int>();
+            int Scales_length = reader.Read<short>();
+            this.Scales = new CustomVar<short>[Scales_length];
+            for (int i = 0; i < Scales_length; i++)
+                this.Scales[i] = reader.Read<CustomVar<short>>();
+            int Subentities_length = reader.Read<short>();
+            this.SubEntities = new SubEntity[Subentities_length];
+            for (int i = 0; i < Subentities_length; i++)
+            {
+                this.SubEntities[i] = new SubEntity();
+                this.SubEntities[i].Deserialize(reader);
+            }
+
+        }
+
+
+    }
 }

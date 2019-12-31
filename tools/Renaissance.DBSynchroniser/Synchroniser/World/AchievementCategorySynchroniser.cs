@@ -9,19 +9,19 @@ using Renaissance.World.Database.Achievements.Categories;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class AchievementCategorySynchroniser : AbstractSynchroniser<AchievementCategory, AchievementCategoryData>
+    public class AchievementCategorySynchroniser : AbstractSynchroniser<AchievementCategoryRecord, AchievementCategoryData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public AchievementCategorySynchroniser(D2IManager d2i, IEnumerable<AchievementCategoryData> datas, IRepository<AchievementCategory> database)
+        public AchievementCategorySynchroniser(D2IManager d2i, IEnumerable<AchievementCategoryData> datas, IRepository<AchievementCategoryRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
 
-        protected override AchievementCategory BuildEntity(AchievementCategoryData data)
+        protected override AchievementCategoryRecord BuildEntity(AchievementCategoryData data)
         {
-            return new AchievementCategory()
+            return new AchievementCategoryRecord()
             {
                 Id = (int)data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

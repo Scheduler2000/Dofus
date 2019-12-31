@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Ornaments
 {
-    public class OrnamentRepository : Repository<OrnamentContext, Ornament>
+    public class OrnamentRepository : Repository<OrnamentContext, OrnamentRecord>
     { }
 }

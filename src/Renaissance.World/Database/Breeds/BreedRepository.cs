@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Breeds
 {
-    public class BreedRepository : Repository<BreedContext, Breed>
+    public class BreedRepository : Repository<BreedContext, BreedRecord>
     { }
 }

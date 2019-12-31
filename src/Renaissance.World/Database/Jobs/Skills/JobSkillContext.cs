@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Jobs.Skills
 {
-    public class JobSkillContext : DofusContext<JobSkill>
+    public class JobSkillContext : DofusContext<JobSkillRecord>
     {
-        public override DbSet<JobSkill> Table { get; set; }
+        public override DbSet<JobSkillRecord> Table { get; set; }
 
         public JobSkillContext()
         {
-            this.Table = base.Set<JobSkill>();
+            this.Table = base.Set<JobSkillRecord>();
             Verify("JobsSkills");
         }
     }

@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Jobs.Skills
 {
-    public class JobSkillRepository : Repository<JobSkillContext, JobSkill>
+    public class JobSkillRepository : Repository<JobSkillContext, JobSkillRecord>
     { }
 }

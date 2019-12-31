@@ -30,6 +30,7 @@ using Renaissance.World.Database.Challenges;
 using Renaissance.World.Database.Dungeons;
 using Renaissance.World.Database.Effects;
 using Renaissance.World.Database.Emoticons;
+using Renaissance.World.Database.Heads;
 using Renaissance.World.Database.Idols;
 using Renaissance.World.Database.Items;
 using Renaissance.World.Database.Items.Panoplies;
@@ -149,6 +150,9 @@ namespace Renaissance.DBSynchroniser.Synchroniser.Pattern
                         break;
                     case "MapPositions":
                         m_syncs.Add(new MapPositionSynchroniser(objects.Select(x => x.Value as MapPositionData), new MapPositionRepository()));
+                        break;
+                    case "Heads":
+                        m_syncs.Add(new HeadSynchroniser(objects.Select(x => x.Value as HeadData), new HeadRepository()));
                         break;
                     default:
                         throw new FileNotFoundException($"{d2oName} doesn't map a synchroniser !");

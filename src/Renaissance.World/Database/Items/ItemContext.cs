@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Items
 {
-    public class ItemContext : DofusContext<Item>
+    public class ItemContext : DofusContext<ItemRecord>
     {
-        public override DbSet<Item> Table { get; set; }
+        public override DbSet<ItemRecord> Table { get; set; }
 
         public ItemContext()
         {
-            this.Table = base.Set<Item>();
+            this.Table = base.Set<ItemRecord>();
             Verify("Items");
         }
     }

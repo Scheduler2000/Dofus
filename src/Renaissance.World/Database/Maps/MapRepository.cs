@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Maps
 {
-    public class MapRepository : Repository<MapContext, Map>
+    public class MapRepository : Repository<MapContext, MapRecord>
     { }
 }

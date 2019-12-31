@@ -10,17 +10,17 @@ using Renaissance.World.Database.Breeds;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class BreedSynchroniser : AbstractSynchroniser<Breed, BreedData>
+    public class BreedSynchroniser : AbstractSynchroniser<BreedRecord, BreedData>
     {
         private readonly D2IManager m_d2i;
 
-        public BreedSynchroniser(D2IManager d2i, IEnumerable<BreedData> datas, IRepository<Breed> database)
+        public BreedSynchroniser(D2IManager d2i, IEnumerable<BreedData> datas, IRepository<BreedRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
-        protected override Breed BuildEntity(BreedData data)
+        protected override BreedRecord BuildEntity(BreedData data)
         {
-            return new Breed
+            return new BreedRecord
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.ShortNameId),

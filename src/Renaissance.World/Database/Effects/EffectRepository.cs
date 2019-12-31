@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Effects
 {
-    public class EffectRepository : Repository<EffectContext, Effect>
+    public class EffectRepository : Repository<EffectContext, EffectRecord>
     { }
 }

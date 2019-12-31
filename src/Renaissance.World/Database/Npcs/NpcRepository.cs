@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Npcs
 {
-    public class NpcRepository : Repository<NpcContext, Npc>
+    public class NpcRepository : Repository<NpcContext, NpcRecord>
     { }
 }

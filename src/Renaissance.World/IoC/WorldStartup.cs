@@ -4,12 +4,10 @@ using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
 using Renaissance.Abstract;
-using Renaissance.Abstract.Database.Share;
-using Renaissance.Abstract.Frame.Brain;
-using Renaissance.Abstract.Network.Distribution;
 using Renaissance.Threading;
-using Renaissance.World.Frame;
-using Renaissance.World.IoC.Protocol;
+using Renaissance.World.IoC.Database;
+using Renaissance.World.IoC.Frame;
+using Renaissance.World.IoC.Manager;
 using Renaissance.World.Networking;
 
 namespace Renaissance.World.IoC
@@ -26,25 +24,15 @@ namespace Renaissance.World.IoC
 
             IContextHandler asyncPool = new AsyncPool(150, "World");
 
-            var messageProvider = new MessageDependency()
-                               .Congifure()
-                               .Build();
-
-            var frames = new FrameBuilder<WorldClient>()
-                                   .RegisterFrame<ApproachFrame>()
-                                   .Build();
-
-            var frameManager = new FrameManager<WorldClient>(frames, asyncPool);
-
-            var frameDispatcher = new FrameDispatcher(messageProvider, frameManager);
+            new ManagerDependency(services).RegisterManagers();
+            new FrameDependency(services, asyncPool).RegisterFrames();
+            new RepositoryDependency(services).RegisterRepositories();
 
 
             var authServer = new WorldServer(asyncPool);
 
 
-            services.AddSingleton(authServer)
-                    .AddSingleton(frameDispatcher)
-                    .AddSingleton(new AccountRepository());
+            services.AddSingleton(authServer);
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 

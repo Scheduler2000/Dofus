@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Jobs.Recipes
 {
-    public class JobRecipeRepository : Repository<JobRecipeContext, JobRecipe>
+    public class JobRecipeRepository : Repository<JobRecipeContext, JobRecipeRecord>
     { }
 }

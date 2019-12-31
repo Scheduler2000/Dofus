@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Jobs
 {
-    public class JobContext : DofusContext<Job>
+    public class JobContext : DofusContext<JobRecord>
     {
-        public override DbSet<Job> Table { get; set; }
+        public override DbSet<JobRecord> Table { get; set; }
 
         public JobContext()
         {
-            this.Table = base.Set<Job>();
+            this.Table = base.Set<JobRecord>();
             Verify("Jobs");
         }
     }

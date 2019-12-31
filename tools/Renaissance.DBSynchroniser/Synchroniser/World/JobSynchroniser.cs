@@ -8,19 +8,19 @@ using Renaissance.World.Database.Jobs;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class JobSynchroniser : AbstractSynchroniser<Job, JobData>
+    public class JobSynchroniser : AbstractSynchroniser<JobRecord, JobData>
     {
         private readonly D2IManager m_d2i;
 
 
-        public JobSynchroniser(D2IManager d2i, IEnumerable<JobData> datas, IRepository<Job> database)
+        public JobSynchroniser(D2IManager d2i, IEnumerable<JobData> datas, IRepository<JobRecord> database)
             : base(datas, database) { this.m_d2i = d2i; }
 
 
 
-        protected override Job BuildEntity(JobData data)
+        protected override JobRecord BuildEntity(JobData data)
         {
-            return new Job()
+            return new JobRecord()
             {
                 Id = data.Id,
                 Name = m_d2i.DataAccess.GetText((int)data.NameId),

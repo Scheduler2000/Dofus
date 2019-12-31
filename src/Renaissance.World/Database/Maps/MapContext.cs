@@ -4,13 +4,13 @@ using Renaissance.Database;
 
 namespace Renaissance.World.Database.Maps
 {
-    public class MapContext : DofusContext<Map>
+    public class MapContext : DofusContext<MapRecord>
     {
-        public override DbSet<Map> Table { get; set; }
+        public override DbSet<MapRecord> Table { get; set; }
 
         public MapContext()
         {
-            this.Table = base.Set<Map>();
+            this.Table = base.Set<MapRecord>();
             Verify("Maps");
         }
     }

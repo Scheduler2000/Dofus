@@ -2,6 +2,6 @@
 
 namespace Renaissance.World.Database.Dungeons
 {
-    public class DungeonRepository : Repository<DungeonContext, Dungeon>
+    public class DungeonRepository : Repository<DungeonContext, DungeonRecord>
     { }
 }

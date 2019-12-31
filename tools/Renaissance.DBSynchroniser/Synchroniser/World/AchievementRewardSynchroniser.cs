@@ -8,17 +8,17 @@ using Renaissance.World.Database.Achievements.Rewards;
 
 namespace Renaissance.DBSynchroniser.Synchroniser.World
 {
-    public class AchievementRewardSynchroniser : AbstractSynchroniser<AchievementReward, AchievementRewardData>
+    public class AchievementRewardSynchroniser : AbstractSynchroniser<AchievementRewardRecord, AchievementRewardData>
     {
 
-        public AchievementRewardSynchroniser(IEnumerable<AchievementRewardData> datas, IRepository<AchievementReward> database)
+        public AchievementRewardSynchroniser(IEnumerable<AchievementRewardData> datas, IRepository<AchievementRewardRecord> database)
             : base(datas, database) { }
 
 
 
-        protected override AchievementReward BuildEntity(AchievementRewardData data)
+        protected override AchievementRewardRecord BuildEntity(AchievementRewardData data)
         {
-            return new AchievementReward()
+            return new AchievementRewardRecord()
             {
                 Id = (int)data.Id,
                 AchievementId = (int)data.AchievementId,
