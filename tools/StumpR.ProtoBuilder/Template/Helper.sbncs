@@ -1,0 +1,77 @@
+﻿{{- ## Helper file for rendering AS3 Dofus 2.X protocol files with Scriban ## -}}
+{{- ## This file will be later injected to *Template.sbncs files ## -}}
+{{- ## Scriban language markdown https://github.com/scriban/scriban/blob/master/doc/language.md ## -}}
+{{- ## Scriban builtins functions markdown https://github.com/scriban/scriban/blob/master/doc/builtins.md ## -}}
+
+
+{{~ func write_directives(directives) ~}}
+    {{~ for directive in layout.directives ~}} 
+    using {{ directive.namespace -}};
+    {{~ end ~}}
+{{~ end -}}
+
+
+{{~ func write_properties(properties, is_enum = false, class_has_parent = false) ~}}
+    {{~ for property in properties ~}}
+    {{~ if is_enum ~}}
+    {{ property.key }} = {{ property.value }} {{~ if !for.last; ",\n"; end; }}
+    {{~ else if property.is_const ~}}
+    public {{~ if class_has_parent }} new {{~ end }} const {{ property.type }} {{ property.name }} = {{ property.value }};{{ "\n" }}
+    {{~ else ~}}
+    public {{ property.type }} {{ property.name }} { get; set; } {{~ if !for.last; "\n"; end; }}
+    {{~ end ~}}
+    {{~ end ~}}
+{{~ end -}}
+
+{{~ func write_constructor(class_information) ~}}
+
+    {{~
+       class_name = class_information.name
+       class_has_parent = class_information.has_parent
+       class_parent = class_information.parent
+       class_properties = class_information.properties | array.remove_at 0 ## Remove const Id property
+       class_parent_properties = class_information.parent_properties
+       
+    ~}}
+
+    public {{ class_name }}() { }
+
+    {{~ if class_has_parent || class_properties.size > 0 -}} 
+
+        public {{ class_name }}(
+         {{- if class_has_parent -}}  
+            {{- for property in class_parent_properties -}}
+                {{ property.type }} {{ property.local_variable_name }} {{~ if !for.last || class_properties.size != 0 ~}} , {{""}} {{~ end ~}}
+            {{- end -}} 
+        {{- end }}
+        {{- for property in class_properties -}} 
+            {{ property.type }} {{ property.local_variable_name }} {{~ if !for.last ~}} , {{""}} {{~ end ~}} 
+        {{- end -}} 
+        )
+        {{- if class_has_parent -}} {{"\n"~}}
+                : base(
+                  {{- for property in class_parent_properties -}} 
+                      {{ property.local_variable_name }} {{~ if !for.last ~}} , {{""}} {{~ end ~}}
+                  {{- end -}})
+            {{- end -}} {{"\n"~}}
+        {
+            {{~ for property in class_properties ~}} 
+            {{ property.name }} = {{ property.local_variable_name }};
+            {{~ end ~}} 
+        }
+    {{- end -}} 
+{{~ end -}}
+
+{{~ func write_serialize(class_information) ~}}
+    public {{~ if class_information.has_parent }} new {{~ end }} void Serialize(IDataWriter writer)
+    {
+        throw new NotImplementedException();
+    }
+{{~ end -}}
+
+{{~ func write_deserialize(class_information) ~}}
+    public {{~ if class_information.has_parent }} new {{~ end }} void Deserialize(IDataReader reader)
+    {
+        throw new NotImplementedException();
+    }
+{{~ end -}}

@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# IDE0052: Supprimer les membres privés non lus
-dotnet_diagnostic.IDE0052.severity = none
